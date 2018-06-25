@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Beautiful Song</title>
+  <!-- BOOTSTRAP  -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+  <!-- JQuery -->
+  <script src="https://code.jquery.com/jquery.js"></script>
+
+  <!-- VIDEOJS player link -->
+  <link href="https://vjs.zencdn.net/7.0.3/video-js.css" rel="stylesheet">
+
+  <!-- my CSS -->
+  <link rel="stylesheet" type="text/css" href="assets/CSS/style.css">
+  
+</head>
+
+<body>
+
+  <header class="jumbotron jumbotron-fluid text-center bg-info text-white mb-0 py-4"> 
+    <div class="container">
+      <h1>Beautiful Song</h1>
+      <form>
+      <div class="input-group mb-4 col-6 m-auto">
+        <input type="text" id="userInput" class="form-control" placeholder="Search Your Song Here ...">
+        <div class="input-group-append">
+          <button id="searchButton" class="btn btn-warning text-secondary" type="submit">Search</button>
+        </div>
+      </div>
+      </form>               
+    </div>
+  </header>
+
+  <!-- video window -->
+  <section class="main-preview-player container p-0">
+    <video 
+      id="preview-player" 
+      class="video-js vjs-fluid" 
+      controls preload="auto" 
+      crossorigin="anonymous"
+      controls
+      autoplay
+      data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/embed/ClU3fctbGls"}] }'>
+      <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+    </video>
+
+    <div class="playlist-container  preview-player-dimensions vjs-fluid">
+      <ol class="vjs-playlist">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ol>
+    </div>
+  </section>
+
+    
+  <section class="container">
+    <!-- 1st row lyric-->
+    <div class="row" >
+
+      <div id="lyric" class="col-8 bg-info" style="background-color: green; height: 400px;">
+        
+      </div>
+
+      <!-- my list -->
+      <div class="col-4 text-white bg-warning" id="mylist" style=" height: auto;">
+        <p>hasishiohdiwoehd</p>
+        <p>dndiofioewrhfirwh</p>
+      </div>
+      
+    </div><!-- 1st row lyric end-->
+
+    <!-- 2cd row recommendation-->
+    <div class="row" id="recommendation" style="background-color: pink; height: 400px;" >
+    
+      
+    </div><!-- 3nd row recommendation end-->
+
+
+  </section>
+
+  <!-- footer -->
+  <footer class="fixed-bottom bg-info">
+    <p class="text-white font-weight-light text-center pt-3">copyright &copy;</p>
+  </footer>
+
+ <script src="https://vjs.zencdn.net/7.0.3/video.js"></script>
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.5.0/Youtube.js"></script>
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.5.0/Youtube.min.js"></script>
+ <script type="text/javascript" src="assets/JS/myJS.js"></script>
+ <!-- <script src="https://cdn.jsdelivr.net/npm/videojs-playlist-ui@3.4.0/dist/videojs-playlist-ui.cjs.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-playLists/0.2.0/videojs-playlists.min.js"></script> -->
+
+
+ 
+</body>
+
+</html>
