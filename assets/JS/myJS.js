@@ -4,6 +4,12 @@ $(document).ready(function() {
 
 	var videoId = "";
 
+	var artistName = "";
+
+	var trackName ="";
+
+	//create play-list
+
 	//search function will take whatever the user typy in 
 	$("#searchButton").on("click", function(){
 		//prevents the submit button from trying to submit a form when clicked
@@ -47,18 +53,25 @@ $(document).ready(function() {
 			  myPlayer.src({ type: 'video/youtube', src: url });
 			});
 
-	    });
+	    	
+		    var str = response.items[0].snippet.title;
+		    var res = str.split("-");
 
-	    var selectVideoQueryURL = 	"https://www.googleapis.com/youtube/v3/videos" +
-	    							"&part=snippet" +
-	    							"&key=" + youTuBeApiKey; 
+		    console.log(str);
+		    console.log(res);
 
-	}); 							
+		    artistName = res[0];
+		    trackName = res[1];
 
-		
+		    console.log(artistName);
+		    console.log(trackName);
+
+		}); 							
+
+	});	
 	
 
-})
+});
 
 
 
