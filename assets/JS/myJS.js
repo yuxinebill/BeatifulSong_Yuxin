@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
 	var player = videojs("video");
+
 	// Player will play the first item in myList
 	var myList = [{
 	  name: 'P!nk - Just Give Me A Reason ft. Nate Ruess',
@@ -123,27 +124,130 @@ $(document).ready(function() {
 	        			"&maxResults=5" +
 	        			"&videoCategoryId=10" +
 	        			"&key=" + 
-	        			youTuBeApiKey ;
+	        			youTuBeApiKey;
 	        
 	    // Performing an AJAX request with the queryURL
 	    $.ajax({
 	      url: queryURL,
 	      method: "GET"
 	    }).then (function (response){
-	    	console.log(response);
-	    	videoId = response.items[0].id.videoId
-	    	var url= "https://www.youtube.com/embed/" + videoId;
+	    	//get the ID of 5 new songs
+	    	var videoId_0 = response.items[0].id.videoId ;
+	    	var videoId_1 = response.items[1].id.videoId ;
+	    	var videoId_2 = response.items[2].id.videoId ;
+	    	var videoId_3 = response.items[3].id.videoId ;
+	    	var videoId_4 = response.items[4].id.videoId ;
+	    	// var url= "https://www.youtube.com/embed/" + videoId;
+
+	    	//get the title of 5 new songs
+	    	var videoTitle_0 = response.items[0].snippet.title ;
+	    	var videoTitle_1 = response.items[1].snippet.title ;
+	    	var videoTitle_2 = response.items[2].snippet.title ;
+	    	var videoTitle_3 = response.items[3].snippet.title ;
+	    	var videoTitle_4 = response.items[4].snippet.title ;
+
+	    	var myList = [{
+			  name: videoTitle_0 ,
+			  description: '',
+			  duration: 243,
+			  sources: [
+			    { src: 'https://www.youtube.com/embed/' + videoId_0, type: 'video/youtube' },
+			  ],
+			  // thumbnail give the pic in the playlist
+			  thumbnail: [
+			    {
+			      srcset: 'https://i.ytimg.com/vi/' + videoId_0 + '/mqdefault.jpg',
+			      type: 'image/jpg',
+			      media: '(min-width: 400px;)'
+			    }
+			  ]
+			},
+			//second song in playlist
+			{
+			  name: videoTitle_1,
+			  description: '',
+			  duration: 249,
+			  sources: [
+			    { src: 'https://www.youtube.com/embed' + videoId_1, type: 'video/youtube' },
+			  ],
+			  thumbnail: [
+			    {
+			      srcset: 'https://i.ytimg.com/vi/' + videoId_1 + '/mqdefault.jpg',
+			      type: 'image/jpg',
+			      media: '(min-width: 400px;)'
+			    },
+			  ]
+			},
+			//3rd song in playlist
+			{
+			  name: videoTitle_2 ,
+			  description: '',
+			  duration: 321,
+			  sources: [
+			    { src: 'https://www.youtube.com/embed/' + videoId_2, type: 'video/youtube' },
+			  ],
+			  thumbnail: [
+			    {
+			      srcset: 'https://i.ytimg.com/vi/' + videoId_2 + '/mqdefault.jpg',
+			      type: 'image/jpg',
+			      media: '(min-width: 400px;)'
+			    },
+			  ]
+			 },
+			 //4th song in playlist
+			{
+			  name: videoTitle_3 ,
+			  description: '',
+			  duration: 297,
+			  sources: [
+			    { src: 'https://www.youtube.com/embed/' + videoId_3, type: 'video/youtube' },
+			  ],
+			  thumbnail: [
+			    {
+			      srcset: 'https://i.ytimg.com/vi/' + videoId_3 + '/mqdefault.jpg',
+			      type: 'image/jpg',
+			      media: '(min-width: 400px;)'
+			    },
+			  ]
+			 },
+			 //5th song in playlist
+			{
+			  name: videoTitle_4 ,
+			  description: '',
+			  duration: 232,
+			  sources: [
+			    { src: 'https://www.youtube.com/embed/' + videoId_4, type: 'video/youtube' },
+			  ],
+			  thumbnail: [
+			    {
+			      srcset: 'https://i.ytimg.com/vi/' + videoId_4 + '/mqdefault.jpg',
+			      type: 'image/jpg',
+			      media: '(min-width: 400px;)'
+			    },
+			  ]
+			 }	
+			];
+
+			player.playlist(myList);
+			// Initialize the playlist-ui plugin with no option (i.e. the defaults).
+			player.playlistUi();
+
+
+
+
+
+
 	    	
 	    	//change the video ULR whenever the user type in keyword
-	    	videojs('preview-player').ready(function() {
-			  var myPlayer = this;
-			  myPlayer.src({ type: 'video/youtube', src: url });
-			});
+	    	// videojs('vjs-playlist').ready(function() {
+			  // var myPlayer = this;
+			  // myPlayer.src({ type: 'video/youtube', src: url });
+			  
 	    	
-		    var str = response.items[0].snippet.title;
-		    var res = str.split("-");
+		    
+		    var res = videoTitle_0.split("-");
 
-		    console.log(str);
+		    console.log(videoTitle_0);
 		    console.log(res);
 
 		    artistName = res[0];
