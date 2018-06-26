@@ -85,19 +85,13 @@ $(document).ready(function() {
 	 }	
 	];
 
+	// videoJS' function to push the myList into player
 	player.playlist(myList);
 	// Initialize the playlist-ui plugin with no option (i.e. the defaults).
 	player.playlistUi();
 
-	var q = "";
-
-	var videoId = "";
-
 	var artistName = "";
-
-	var trackName ="";
-
-	//create play-list
+	var trackName = "";
 
 	//search function will take whatever the user typy in 
 	$("#searchButton").on("click", function(){
@@ -108,10 +102,8 @@ $(document).ready(function() {
 
 	    //if user do not type in any word, then show the alert
 	    if ( q == "") {
-	      alert("you did not type any word in!")
-	    } else {
-	  		//search the song of userInput
-	  		userSearch = userInput ;}
+	      alert("you did not type any word in!");
+	    } ;
 
 	  	//youTuBe API key
 		var youTuBeApiKey = "AIzaSyCJ4ygjtnrG-r3EoZ3jiR5ssYiFN_JahCQ" ;
@@ -146,7 +138,8 @@ $(document).ready(function() {
 	    	var videoTitle_3 = response.items[3].snippet.title ;
 	    	var videoTitle_4 = response.items[4].snippet.title ;
 
-	    	var myList = [{
+	    	//push the new songs into myList
+	    	myList = [{
 			  name: videoTitle_0 ,
 			  description: '',
 			  duration: 243,
@@ -232,7 +225,7 @@ $(document).ready(function() {
 			player.playlistUi();
 
 
-	    	videojs('vjs-playlist').ready(function() {
+	    	videojs('video').ready(function() {
 	    		var myPlayer = this;
 			  	myPlayer.src({ type: 'video/youtube', src: 'https://www.youtube.com/embed/' + videoId_0 });
 			});

@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Beautiful Song</title>
+  <title>Pin Song</title>
   <!-- BOOTSTRAP  -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
@@ -21,7 +21,7 @@
   <!-- VIDEOJS player plugin-playlist-ui -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/videojs-playlist-ui@3.4.0/dist/videojs-playlist-ui.css">
 
-  <link href="examples.css" rel="stylesheet">
+  <link href="assets/CSS/style.css" rel="stylesheet">
 
   
 </head>
@@ -30,7 +30,7 @@
 
   <header class="jumbotron jumbotron-fluid text-center bg-info text-white mb-0 py-4"> 
     <div class="container">
-      <h1>Beautiful Song</h1>
+      <h1>Pin Song</h1>
       <form>
       <div class="input-group mb-4 col-6 m-auto">
         <input type="text" id="userInput" class="form-control" placeholder="Search Your Song Here ...">
@@ -59,41 +59,33 @@
 
     <div class="player-container col-4 vjs-fluid">
       <div class="vjs-playlist vjs-fluid">
-        <!--  using javascript to append playlist here -->
+        <!--  using javascript to add playlist here -->
       </div>
     </div>
 
     <button class="btn btn-warning m-4 "> Loop </button>
     <button class="btn btn-warning my-4"> Add to My List</button>
     
-
-  </div>
+  </div> <!-- video window end -->
 
     
   <section class="container">
     <!-- 1st row lyric-->
-    <div class="row" >
+    <div class="row p-0" >
 
-      <div id="lyric" class="col-8 bg-info" style="background-color: green; height: 400px;">
+      <div id="lyricContainer" class="col-8 bg-info p-0" style="height: 400px;">
 
-         <div id="currentLyric" style="height: 80%; width: 100%; background-color: yellow"></div>
+         <div id="currentLyric" class="m-0" style="height: 90%; width: 100%; background-color: yellow"></div>
 
-         <div id="askUserLyric"> Did you mean | title insert | ? If not search again</div>
-
-         <div id="searchAgain">
-           <form class="form-inline">
-            
-            <div class="form-group">  
-              <input  class="form-control" id="artist_name" placeholder="artist name">
-            </div>
-
-            <div class="form-group">  
-              <input  class="form-control" id="track_name" placeholder="name of song">
-            </div>
-            <button type="submit" class="btn btn-primary mb-2">Search</button>
-          </form> 
-         </div>
-        
+         <div id="searchLyric">
+           <form class="form-inline float-right">
+              <div class="form-group ">  
+                <input  class="form-control mr-2 " id="artist_name" placeholder="artist name"> 
+                <input  class="form-control mr-2 " id="track_name" placeholder="name of song">            
+                <button class="btn btn-warning " > Search Lyrics </button>
+              </div>
+            </form> 
+          </div>      
       </div>
 
       <!-- my list -->
@@ -107,7 +99,7 @@
     <!-- 2cd row recommendation-->
     <div class="row" id="recommendation" style="background-color: pink; height: 400px;" >
     
-      <
+      
       
     </div><!-- 3nd row recommendation end-->
 
@@ -115,14 +107,19 @@
   </section>
 
   <!-- footer -->
-  <footer class="fixed-bottom bg-info">
+  <footer class="bg-info">
     <p class="text-white font-weight-light text-center pt-3">copyright &copy;</p>
   </footer>
-
+  
+ <!-- videoJS link -->
  <script src="https://vjs.zencdn.net/7.0.3/video.js"></script>
- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.5.0/Youtube.min.js"></script>
+ <!-- videoJS plugin youtube link -->
+ <script src="https://cdn.jsdelivr.net/npm/videojs-youtube@2.5.0/dist/Youtube.js"></script>
+ <!-- videoJS plugin playlist link -->
  <script src="https://cdn.jsdelivr.net/npm/videojs-playlist@4.2.1/dist/videojs-playlist.js"></script>
+ <!-- videoJS plushin playlist ui link -->
  <script src="https://cdn.jsdelivr.net/npm/videojs-playlist-ui@3.4.0/dist/videojs-playlist-ui.js"></script>
+ <!-- my JS file -->
  <script type="text/javascript" src="assets/JS/myJS.js"></script>
  
 
