@@ -233,13 +233,10 @@ $(document).ready(function() {
 			player.playlistUi();
 
 
-
-
-
-
-	    	
-	    	//change the video ULR whenever the user type in keyword
-	    	// videojs('vjs-playlist').ready(function() {
+	    	videojs('vjs-playlist').ready(function() {
+	    		player.playlist(myList);
+				player.playlistUi();
+			});
 			  // var myPlayer = this;
 			  // myPlayer.src({ type: 'video/youtube', src: url });
 			  
@@ -257,7 +254,8 @@ $(document).ready(function() {
 		    console.log(trackName);
 
 		    var durationURL = 	"https://www.googleapis.com/youtube/v3/videos?" +
-		    					"&part=&contentDetails" + youTuBeApiKey ;
+		    					"&part=&contentDetails" + 
+		    					"&key=" + youTuBeApiKey ;
 
 		   	console.log(durationURL);
 
