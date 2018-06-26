@@ -93,6 +93,18 @@ $(document).ready(function() {
 	var artistName = "";
 	var trackName = "";
 
+	$("#loopBtn").on("click", function () {
+		if ( videojs('video').loop() == "false" ) {
+				videojs('video').loop() = "true" ;
+				$("#loopBtn").html("Stop Looping");
+			} else {
+				videojs('video').loop() = "false"
+			}
+	});
+
+	
+
+	 
 	//search function will take whatever the user typy in 
 	$("#searchButton").on("click", function(){
 		//prevents the submit button from trying to submit a form when clicked
@@ -224,7 +236,6 @@ $(document).ready(function() {
 			player.playlist(myList);
 			player.playlistUi();
 
-
 	    	videojs('video').ready(function() {
 	    		var myPlayer = this;
 			  	myPlayer.src({ type: 'video/youtube', src: 'https://www.youtube.com/embed/' + videoId_0 });
@@ -244,9 +255,10 @@ $(document).ready(function() {
 		    console.log(artistName);
 		    console.log(trackName);
 
-		    var durationURL = 	"https://www.googleapis.com/youtube/v3/videos?" +
-		    					"&part=&contentDetails" + 
-		    					"&key=" + youTuBeApiKey ;
+		    var durationURL_0 = 	"https://www.googleapis.com/youtube/v3/videos?" +
+		    						"&part=&contentDetails" + 
+		    						"&id=" + videoTitle_0 +
+		    						"&key=" + youTuBeApiKey ;
 
 		   	console.log(durationURL);
 

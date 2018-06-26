@@ -46,14 +46,15 @@
   <div class="player-container row">
     <!-- videojs defines all the classes' name, and give style to the video player --> 
     <video 
-      id="video" 
+      loop = "false"
+      id="video"
       class="video-js vjs-fluid vjs-big-play-centered col-8" 
       controls
       preload="auto" 
       crossorigin="anonymous" 
       preload="auto" 
       autoplay
-      loop = "true">      
+      loop = "false" >      
       <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
     </video>
 
@@ -63,8 +64,8 @@
       </div>
     </div>
 
-    <button class="btn btn-warning m-4 "> Loop </button>
-    <button class="btn btn-warning my-4"> Add to My List</button>
+    <button id="loopBtn" class="btn btn-warning m-4 "> Loop </button>
+    <button id="toMyListBtn" class="btn btn-warning my-4"> Add to My List</button>
     
   </div> <!-- video window end -->
 
