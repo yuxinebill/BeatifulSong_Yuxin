@@ -1,0 +1,90 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.info {
+  background-color: #eee;
+  border: thin solid #333;
+  border-radius: 3px;
+  margin: 0 0 20px;
+  padding: 0 5px;
+}
+
+.player-container {
+  background: #1a1a1a;
+  overflow: auto;
+  width: 100%;
+  margin: 0 0 20px;
+}
+
+.video-js {
+  float: left;
+}
+
+.vjs-playlist,
+.my-custom-class,
+#my-custom-element {
+  float: left;
+  width: 100%;
+}
+
+.vjs-playlist.vjs-playlist-horizontal {
+  float: none;
+  height: 120px;
+  width: 100%;
+}
+
+.video-js,
+.playlist-container {
+  position: relative;
+  min-width: 200px;
+  min-height: 150px;
+  height: 0;
+}
+
+.vjs-playlist {
+  margin: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/*pause button*/ 
+.vjs-paused .vjs-big-play-button,
+.vjs-paused.vjs-has-started .vjs-big-play-button {
+    display: block;
+}
+
+/*play button to circle*/ 
+.video-js .vjs-big-play-button{
+    font-size: 2.5em;
+    line-height: 2.3em;
+    height: 2.5em;
+    width: 2.5em;
+    -webkit-border-radius: 2.5em;
+    -moz-border-radius: 2.5em;
+    border-radius: 2.5em;
+    background-color: #73859f;
+    background-color: rgba(115,133,159,.5);
+    border-width: 0.15em;
+    margin-top: -1.25em;
+    margin-left: -1.75em;
+}
+/* arrow inside play button */
+.vjs-big-play-button .vjs-icon-placeholder {
+    font-size: 1.63em;
+}
+/* give a circle outline */
+.vjs-loading-spinner {
+    font-size: 2.5em;
+    width: 2em;
+    height: 2em;
+    border-radius: 1em;
+    margin-top: -1em;
+    margin-left: -1.5em;
+}
+
+
+

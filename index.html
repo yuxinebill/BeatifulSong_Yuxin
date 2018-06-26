@@ -19,8 +19,9 @@
   <link rel="stylesheet" type="text/css" href="assets/CSS/style.css">
 
   <!-- VIDEOJS player plugin-playlist-ui -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/videojs-playlist-ui@3.4.0/dist/videojs-playlist-ui.vertical.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/videojs-playlist-ui@3.4.0/dist/videojs-playlist-ui.css">
 
+  <link href="examples.css" rel="stylesheet">
 
   
 </head>
@@ -42,52 +43,31 @@
   </header>
 
   <!-- video window -->
-  <section class="main-preview-player container p-0">
+  <div class="player-container row">
+    <!-- videojs defines all the classes' name, and give style to the video player --> 
     <video 
-      id="preview-player" 
-      class="video-js vjs-fluid vjs-16-9" 
-      controls 
+      id="video" 
+      class="video-js vjs-fluid vjs-big-play-centered col-8" 
+      controls
       preload="auto" 
-      crossorigin="anonymous"
+      crossorigin="anonymous" 
+      preload="auto" 
       autoplay
-      loop = "true"
-      data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/embed/DsUmmudjkfQ"}] }'>
+      loop = "true">      
       <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
     </video>
 
-    <div class="playlist-container preview-player-dimensions vjs-fluid">
-      <ol class="vjs-playlist vjs-csspointerevents vjs-mouse">
-
-        <!-- <li class="vjs-playlist-item vjs-selected" tabindex="0"><picture class="vjs-playlist-thumbnail vjs-playlist-now-playing"><source srcset="https://i.ytimg.com/vi/EBt_88nxG4c/mqdefault.jpg" type="image/jpg" media="(min-width: 400px;)"><img src="https://i.ytimg.com/vi/EBt_88nxG4c/mqdefault.jpg"></picture><time class="vjs-playlist-duration" datetime="PT0H0M45S">0:45</time><cite class="vjs-playlist-name" title="Disney's Oceans">Disney's Oceans</cite><p class="vjs-playlist-description" title="Explore the depths of our planet's oceans. Experience the stories that connect their world to ours. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.">Explore the depths of our planet's oceans. Experience the stories that connect their world to ours. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p></li><li class="vjs-playlist-item" tabindex="0"><picture class="vjs-playlist-thumbnail"><source srcset="https://i.ytimg.com/vi/EBt_88nxG4c/mqdefault.jpg" type="image/png" media="(min-width: 400px;)"><img src="https://i.ytimg.com/vi/EBt_88nxG4c/mqdefault.jpg"></picture><time class="vjs-playlist-duration" datetime="PT0H0M888S">14:48</time><cite class="vjs-playlist-name" title="Sintel">Sintel</cite><p class="vjs-playlist-description" title="The film follows a girl named Sintel who is searching for a baby dragon she calls Scales.">The film follows a girl named Sintel who is searching for a baby dragon she calls Scales.</p></li><li class="vjs-playlist-item" tabindex="0"><div class="vjs-playlist-thumbnail"></div><cite class="vjs-playlist-name" title="Advanced Bip Bop">Advanced Bip Bop</cite><p class="vjs-playlist-description" title="Apple's test HLS stream">Apple's test HLS stream</p></li><li class="vjs-playlist-item" tabindex="0"><picture class="vjs-playlist-thumbnail"><source srcset="//d2zihajmogu5jn.cloudfront.net/elephantsdream/poster.png" type="image/png" media="(min-width: 400px;)"><img src="//d2zihajmogu5jn.cloudfront.net/elephantsdream/poster.png"></picture><time class="vjs-playlist-duration" datetime="PT0H0M653S">10:53</time><cite class="vjs-playlist-name" title="Elephant's Dream">Elephant's Dream</cite><p class="vjs-playlist-description" title="The film features two men, Proog, who is older and more experienced, and Emo, who is young and nervous, living in a miraculous construction referred to only as &quot;The Machine&quot;.">The film features two men, Proog, who is older and more experienced, and Emo, who is young and nervous, living in a miraculous construction referred to only as "The Machine".</p></li><li class="vjs-playlist-item" tabindex="0"><picture class="vjs-playlist-thumbnail"><source srcset="//d2zihajmogu5jn.cloudfront.net/tears-of-steel/tears_of_steel.jpg" type="image/jpeg" media="(min-width: 400px;)"><img src="//d2zihajmogu5jn.cloudfront.net/tears-of-steel/tears_of_steel.jpg"></picture><time class="vjs-playlist-duration" datetime="PT0H0M733S">12:13</time><cite class="vjs-playlist-name" title="Tears of Steel">Tears of Steel</cite></li><li class="vjs-playlist-item" tabindex="0"><picture class="vjs-playlist-thumbnail"><source srcset="//d2zihajmogu5jn.cloudfront.net/big-buck-bunny/bbb.png" type="image/png" media="(min-width: 400px;)"><img src="//d2zihajmogu5jn.cloudfront.net/big-buck-bunny/bbb.png"></picture><time class="vjs-playlist-duration" datetime="PT0H0M596S">9:56</time><cite class="vjs-playlist-name" title="Big Buck Bunny">Big Buck Bunny</cite><p class="vjs-playlist-description" title="The plot follows a day of the life of Big Buck Bunny when he meets three bullying rodents, Frank (the leader of the rodents), Rinky and Gimera.">The plot follows a day of the life of Big Buck Bunny when he meets three bullying rodents, Frank (the leader of the rodents), Rinky and Gimera.</p></li><li class="vjs-playlist-ad-overlay"></li> -->
-
-        <!-- <li class="vjs-playlist-item vjs-selected">
-          <picture class="vjs-playlist-thumbnail vjs-playlist-now-playing">
-            <img src="https://i.ytimg.com/vi/EBt_88nxG4c/mqdefault.jpg" width="200" />
-          </picture>
-        </li> -->
-
-        <!-- <li class="vjs-playlist-item vjs-selected" tabindex="0">
-          <picture class="vjs-playlist-thumbnail vjs-playlist-now-playing">
-            <source srcset="https://i.ytimg.com/vi/qrO4YZeyl0I/hqdefault.jpg" type="image/png" media="(min-width: 400px;)">
-            <img src="https://i.ytimg.com/vi/qrO4YZeyl0I/hqdefault.jpg">
-            <time class="vjs-playlist-duration" datetime="PT0H0M45S">0:45</time>
-            <cite class="vjs-playlist-name" title="Disney's Oceans">Disney's Oceans</cite>
-            <p class="vjs-playlist-description" title="haha">haha</p>
-          </picture>
-        </li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li> -->
-      </ol>
+    <div class="player-container col-4 vjs-fluid">
+      <div class="vjs-playlist vjs-fluid">
+        <!--  using javascript to append playlist here -->
+      </div>
     </div>
 
+    <button class="btn btn-warning m-4 "> Loop </button>
+    <button class="btn btn-warning my-4"> Add to My List</button>
+    
 
-
-
-
-
-  </section>
+  </div>
 
     
   <section class="container">
@@ -97,6 +77,8 @@
       <div id="lyric" class="col-8 bg-info" style="background-color: green; height: 400px;">
 
          <div id="currentLyric" style="height: 80%; width: 100%; background-color: yellow"></div>
+
+         <div id="askUserLyric"> Did you mean | title insert | ? If not search again</div>
 
          <div id="searchAgain">
            <form class="form-inline">
@@ -125,6 +107,7 @@
     <!-- 2cd row recommendation-->
     <div class="row" id="recommendation" style="background-color: pink; height: 400px;" >
     
+      <
       
     </div><!-- 3nd row recommendation end-->
 
@@ -138,10 +121,9 @@
 
  <script src="https://vjs.zencdn.net/7.0.3/video.js"></script>
  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.5.0/Youtube.min.js"></script>
- <script src="https://mux-sdks-test.s3.amazonaws.com/videojs/0/videojs-mux.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/videojs-playlist@4.2.1/dist/videojs-playlist.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/videojs-playlist-ui@3.4.0/dist/videojs-playlist-ui.js"></script>
  <script type="text/javascript" src="assets/JS/myJS.js"></script>
- <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-playLists/0.2.0/videojs-playlists.min.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/videojs-playlist-ui@3.4.0/dist/videojs-playlist-ui.cjs.min.js"></script> -->
  
 
 
