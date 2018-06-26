@@ -229,16 +229,14 @@ $(document).ready(function() {
 			];
 
 			player.playlist(myList);
-			// Initialize the playlist-ui plugin with no option (i.e. the defaults).
 			player.playlistUi();
 
 
 	    	videojs('vjs-playlist').ready(function() {
-	    		player.playlist(myList);
-				player.playlistUi();
+	    		var myPlayer = this;
+			  	myPlayer.src({ type: 'video/youtube', src: 'https://www.youtube.com/embed/' + videoId_0 });
 			});
-			  // var myPlayer = this;
-			  // myPlayer.src({ type: 'video/youtube', src: url });
+			  
 			  
 	    	
 		    
