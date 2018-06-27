@@ -28,17 +28,22 @@
 
 <body>
 
-  <header class="jumbotron jumbotron-fluid text-center bg-info text-white mb-0 py-4"> 
-    <div class="container">
-      <h1>Pin Song</h1>
-      <form>
-      <div class="input-group mb-4 col-6 m-auto">
-        <input type="text" id="userInput" class="form-control" placeholder="Search Your Song Here ...">
-        <div class="input-group-append">
-          <button id="searchButton" class="btn btn-warning text-secondary" type="submit">Search</button>
-        </div>
+  <header class="jumbotron jumbotron-fluid bg-info mb-0 p-4"> 
+    <div class="row">
+      <div class="col-6">
+        <img id="logo" src="assets/imgs/logo.png">
       </div>
-      </form>               
+
+      <div id="headerFormHolder" class="col-6 mt-4" >    
+        <form  >
+          <div class="input-group float-right align-bottom">
+            <input type="text" id="userInput" class="form-control" placeholder="Search Your Song Here ...">
+            <div class="input-group-append">
+              <button id="searchButton" class="btn btn-warning text-secondary" type="submit">Search</button>
+            </div>
+          </div>
+        </form>
+      </div>          
     </div>
   </header>
 
