@@ -83,7 +83,7 @@ $(document).ready(function() {
 	    },
 	  ]
 	 }	
-	];
+	]; // myList is over
 
 	// videoJS' function to push the myList into player
 	player.playlist(myList);
@@ -106,10 +106,8 @@ $(document).ready(function() {
 			}
 	});
 
-	
-
 	 
-	//search function will take whatever the user typy in 
+	//search function will take whatever the user type in 
 	$("#searchButton").on("click", function(){
 		//prevents the submit button from trying to submit a form when clicked
 	    event.preventDefault();
@@ -158,7 +156,6 @@ $(document).ready(function() {
 	    	myList = [{
 			  name: videoTitle_0 ,
 			  description: '',
-			  duration: 243,
 			  sources: [
 			    { src: 'https://www.youtube.com/embed/' + videoId_0, type: 'video/youtube' },
 			  ],
@@ -175,7 +172,6 @@ $(document).ready(function() {
 			{
 			  name: videoTitle_1,
 			  description: '',
-			  duration: 249,
 			  sources: [
 			    { src: 'https://www.youtube.com/embed/' + videoId_1, type: 'video/youtube' },
 			  ],
@@ -191,7 +187,6 @@ $(document).ready(function() {
 			{
 			  name: videoTitle_2 ,
 			  description: '',
-			  duration: 321,
 			  sources: [
 			    { src: 'https://www.youtube.com/embed/' + videoId_2, type: 'video/youtube' },
 			  ],
@@ -207,7 +202,6 @@ $(document).ready(function() {
 			{
 			  name: videoTitle_3 ,
 			  description: '',
-			  duration: 297,
 			  sources: [
 			    { src: 'https://www.youtube.com/embed/' + videoId_3, type: 'video/youtube' },
 			  ],
@@ -223,7 +217,6 @@ $(document).ready(function() {
 			{
 			  name: videoTitle_4 ,
 			  description: '',
-			  duration: 232,
 			  sources: [
 			    { src: 'https://www.youtube.com/embed/' + videoId_4, type: 'video/youtube' },
 			  ],
@@ -257,16 +250,37 @@ $(document).ready(function() {
 		    console.log(artistName);
 		    console.log(trackName);
 
-		    var durationURL_0 = 	"https://www.googleapis.com/youtube/v3/videos?" +
-		    						"&part=&contentDetails" + 
-		    						"&id=" + videoTitle_0 +
-		    						"&key=" + youTuBeApiKey ;
+		    // url to get each video duration 
+		    var durationURL_0 = "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=" + 
+		    					videoId_0 +
+		    					"&key=" + youTuBeApiKey ;
 
-		   	console.log(durationURL_0);
+		    					console.log(durationURL_0);
+		    //convert youtube api data duration into seconds
+		    function convertTime (duration) {
+			    	var duration_a = duration.split('T'); 
+			    	var min_1 = duration_a[1].split('M');
+			    	var min = min_1[0] * 60;
+			    	var second_1 = min_1[1].split("S");
+			    	var second = second_1[0] * 1;
+			    	var duration = min + second;
+			    	return duration;	    	
+			};
+
+			//get video_0 duration
+		    $.ajax({
+		      url: durationURL_0,
+		      method: "GET"
+		    }).then (function (response){
+			    var duration_str = response.items[0].contentDetails.duration;
+			    var duration_0 = convertTime(duration_str);
+			    console.log(duration_0);
+
+		    }); //ajax get duration end
 
 
-		    // myList[0].name = str ;
-		    // myList[0].duration = "";
+
+		   	
 
 
 
@@ -281,12 +295,13 @@ $(document).ready(function() {
 
 
 
-		//youTube ajax ends
-		}); 							
-	// #searchButton event function ends
-	});		
-//doc ready function ends
-});
+
+
+
+		
+		}); //youTube ajax ends	
+	});	// #searchButton event function ends	
+});//doc ready function ends
 
  
 
