@@ -102,7 +102,7 @@ $(document).ready(function() {
 				$("#loopBtn").text("Stop Looping");
 			} else {
 				videojs('video').loop(false);
-				$("#loopBtn").text("Loop");				
+				$("#loopBtn").text("Start Looping");				
 			}
 	});
 
@@ -177,7 +177,7 @@ $(document).ready(function() {
 			  description: '',
 			  duration: 249,
 			  sources: [
-			    { src: 'https://www.youtube.com/embed' + videoId_1, type: 'video/youtube' },
+			    { src: 'https://www.youtube.com/embed/' + videoId_1, type: 'video/youtube' },
 			  ],
 			  thumbnail: [
 			    {
