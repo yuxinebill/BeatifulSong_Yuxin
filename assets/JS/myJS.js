@@ -137,7 +137,6 @@ $(document).ready(function() {
 	      method: "GET"
 	    }).then (function (response){
 
-
 	    	//var to hold 5 videoID | var to hold 5 videoTitle
 			var videoIdArr = []; 
 			var videoTitleArr = [];
@@ -148,16 +147,32 @@ $(document).ready(function() {
 				videoTitleArr[i] = response.items[i].snippet.title;	
 			}; //for loop end	
 
-			//convert youtube api data duration into seconds
+			var durationStrArr = [];
+			//convert youtube api data duration into seconds. example of original data is PT1H54M40S
 		    function convertTime (duration) {
-		    	var duration_a = duration.split('T'); 
-		    	var min_1 = duration_a[1].split('M');
-		    	var min = min_1[0] * 60;
-		    	var second_1 = min_1[1].split("S");
-		    	var second = second_1[0] * 1;
-		    	var duration = min + second;
-		    	return duration;	    	
-			};
+		    	var durationStrArrs = duration.split(""); 
+	    		var checkHour = durationStrArr.indexOf("H");      
+			    if (checkHour >= 0 ){
+			    	//PT1H54M40S
+			        var duration_a = duration.split('T'); //[P,1H54M40S]
+			    	var hour_1 = duration_a[1].split('H');//[1, 54M40S]
+			    	var hour = hour_1[0] * 60 * 60 ;
+			    	var min_1 = hour_1[1].split('M'); //[54,40S]
+			    	var min = min_1[0] * 60;
+			    	var second_1 = min_1[1].split("S"); //[40]
+			    	var second = second_1[0] * 1;
+			    	var duration = hour + min + second;
+			    	return duration;
+			    } else {
+			        var duration_a = duration.split('T'); 
+			    	var min_1 = duration_a[1].split('M');
+			    	var min = min_1[0] * 60;
+			    	var second_1 = min_1[1].split("S");
+			    	var second = second_1[0] * 1;
+			    	var duration = min + second;
+			    	return duration;
+			    };// if function end 
+			}; //convertTime function end
 
 		    //arr hold 5 queryURL for each video | arr hold all duration
 		    var durationURLarr = [];
@@ -173,8 +188,8 @@ $(document).ready(function() {
 			      method: "GET",
 			      async: false,
 			    }).then (function (response){
-				    var duration_str = response.items[0].contentDetails.duration;
-				    durationArr[i] = convertTime(duration_str);
+				    durationStrArr[i] = response.items[0].contentDetails.duration;
+				    durationArr[i] = convertTime(durationStrArr[i]);
 			    }); //ajax get duration end
 
 			    myList[i] = {
@@ -192,10 +207,10 @@ $(document).ready(function() {
 				    }
 				  ]
 				} //myList end
-
 		    };// for loop end
 
-
+		    console.log(durationStrArr);
+		    console.log(durationArr);
 			//place the first video in new playlist into player
 			videojs('video').ready(function() {
  	    		var myPlayer = this;
