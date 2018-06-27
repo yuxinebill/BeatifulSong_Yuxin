@@ -94,6 +94,7 @@ $(document).ready(function() {
 	var trackName = "";
 
 	$("#loopBtn").on("click", function () {
+		event.preventDefault();
 		if ( videojs('video').loop() == "false" ) {
 				videojs('video').loop() = "true" ;
 				$("#loopBtn").html("Stop Looping");
