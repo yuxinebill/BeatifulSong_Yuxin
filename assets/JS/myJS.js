@@ -240,10 +240,10 @@ $(document).ready(function() {
 			player.playlist(myList);
 			player.playlistUi();
 
-	    	videojs('video').ready(function() {
-	    		var myPlayer = this;
-			  	myPlayer.src({ type: 'video/youtube', src: 'https://www.youtube.com/embed/' + videoId_0 });
-			});
+	  //   	videojs('video').ready(function() {
+	  //   		var myPlayer = this;
+			//   	myPlayer.src({ type: 'video/youtube', src: 'https://www.youtube.com/embed/' + videoId_0 });
+			// });
 			  
 			  
 	    	
