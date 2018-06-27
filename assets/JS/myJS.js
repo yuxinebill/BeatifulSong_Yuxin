@@ -93,6 +93,11 @@ $(document).ready(function() {
 	var artistName = "";
 	var trackName = "";
 
+
+	$("#toMyListBtn").on("click", function(){
+		
+	})
+
 	
 	//loop btn for loop or not loop the video is playing
 	$("#loopBtn").on("click", function () {
@@ -225,9 +230,9 @@ $(document).ready(function() {
 		    console.log(videoTitleArr[0]);
 		    console.log(res);
 
-		    artistName = res[0];
+		    artistName = res[0].trim();
 		    var foo = res[1].split("(");
-		    trackName = foo[0];
+		    trackName = foo[0].trim();
 
 		    console.log(artistName);
 		    console.log(trackName);
