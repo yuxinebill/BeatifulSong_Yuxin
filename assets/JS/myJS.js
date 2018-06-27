@@ -137,110 +137,44 @@ $(document).ready(function() {
 	      url: queryURL,
 	      method: "GET"
 	    }).then (function (response){
-	    	//get the ID of 5 new songs
-	    	var videoId_0 = response.items[0].id.videoId ;
-	    	var videoId_1 = response.items[1].id.videoId ;
-	    	var videoId_2 = response.items[2].id.videoId ;
-	    	var videoId_3 = response.items[3].id.videoId ;
-	    	var videoId_4 = response.items[4].id.videoId ;
-	    	// var url= "https://www.youtube.com/embed/" + videoId;
+	    	//var to hold 5 videoID | var to hold 5 videoTitle
+			var videoIdArr = []; 
+			var videoTitleArr = [];
 
-	    	//get the title of 5 new songs
-	    	var videoTitle_0 = response.items[0].snippet.title ;
-	    	var videoTitle_1 = response.items[1].snippet.title ;
-	    	var videoTitle_2 = response.items[2].snippet.title ;
-	    	var videoTitle_3 = response.items[3].snippet.title ;
-	    	var videoTitle_4 = response.items[4].snippet.title ;
+			// for loop push 5 videoTitle | 5 videoID | new myList
+			for (i=0; i<myList.length; i++) {
+				videoIdArr[i] = response.items[i].id.videoId;
+				videoTitleArr[i] = response.items[i].snippet.title;	
 
-	    	//push the new songs into myList
-	    	myList = [{
-			  name: videoTitle_0 ,
-			  description: '',
-			  sources: [
-			    { src: 'https://www.youtube.com/embed/' + videoId_0, type: 'video/youtube' },
-			  ],
-			  // thumbnail give the pic in the playlist
-			  thumbnail: [
-			    {
-			      srcset: 'https://i.ytimg.com/vi/' + videoId_0 + '/mqdefault.jpg',
-			      type: 'image/jpg',
-			      media: '(min-width: 400px;)'
-			    }
-			  ]
-			},
-			//second song in playlist
-			{
-			  name: videoTitle_1,
-			  description: '',
-			  sources: [
-			    { src: 'https://www.youtube.com/embed/' + videoId_1, type: 'video/youtube' },
-			  ],
-			  thumbnail: [
-			    {
-			      srcset: 'https://i.ytimg.com/vi/' + videoId_1 + '/mqdefault.jpg',
-			      type: 'image/jpg',
-			      media: '(min-width: 400px;)'
-			    },
-			  ]
-			},
-			//3rd song in playlist
-			{
-			  name: videoTitle_2 ,
-			  description: '',
-			  sources: [
-			    { src: 'https://www.youtube.com/embed/' + videoId_2, type: 'video/youtube' },
-			  ],
-			  thumbnail: [
-			    {
-			      srcset: 'https://i.ytimg.com/vi/' + videoId_2 + '/mqdefault.jpg',
-			      type: 'image/jpg',
-			      media: '(min-width: 400px;)'
-			    },
-			  ]
-			 },
-			 //4th song in playlist
-			{
-			  name: videoTitle_3 ,
-			  description: '',
-			  sources: [
-			    { src: 'https://www.youtube.com/embed/' + videoId_3, type: 'video/youtube' },
-			  ],
-			  thumbnail: [
-			    {
-			      srcset: 'https://i.ytimg.com/vi/' + videoId_3 + '/mqdefault.jpg',
-			      type: 'image/jpg',
-			      media: '(min-width: 400px;)'
-			    },
-			  ]
-			 },
-			 //5th song in playlist
-			{
-			  name: videoTitle_4 ,
-			  description: '',
-			  sources: [
-			    { src: 'https://www.youtube.com/embed/' + videoId_4, type: 'video/youtube' },
-			  ],
-			  thumbnail: [
-			    {
-			      srcset: 'https://i.ytimg.com/vi/' + videoId_4 + '/mqdefault.jpg',
-			      type: 'image/jpg',
-			      media: '(min-width: 400px;)'
-			    },
-			  ]
-			 }	
-			];
+				myList[i] = {
+				  name: videoTitleArr[i] ,
+				  description: '',
+				  sources: [
+				    { src: 'https://www.youtube.com/embed/' + videoIdArr[i], type: 'video/youtube' },
+				  ],
+				  // thumbnail give the pic in the playlist
+				  thumbnail: [
+				    {
+				      srcset: 'https://i.ytimg.com/vi/' + videoIdArr[i] + '/mqdefault.jpg',
+				      type: 'image/jpg',
+				      media: '(min-width: 400px;)'
+				    }
+				  ]
+				}
+			}; //for loop end	
 
+			//place the first video in new playlist into player
 			videojs('video').ready(function() {
  	    		var myPlayer = this;
- 			  	myPlayer.src({ type: 'video/youtube', src: 'https://www.youtube.com/embed/' + videoId_0 });
- 			});
+ 			  	myPlayer.src({ type: 'video/youtube', src: 'https://www.youtube.com/embed/' + videoIdArr[0] });
+ 			}); // videojs('video')
 
 			player.playlist(myList);
 			player.playlistUi();
 		    
-		    var res = videoTitle_0.split("-");
+		    var res = videoTitleArr[0].split("-");
 
-		    console.log(videoTitle_0);
+		    console.log(videoTitleArr[0]);
 		    console.log(res);
 
 		    artistName = res[0];
@@ -251,7 +185,8 @@ $(document).ready(function() {
 		    console.log(trackName);
 
 		    // url to get each video duration 
-		    var durationURL_0 = "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=" + 
+		    var videoIDcallDuration =  "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id="
+		    var durationURL_0 = videoIDcallDuration + 
 		    					videoId_0 +
 		    					"&key=" + youTuBeApiKey ;
 
@@ -266,19 +201,53 @@ $(document).ready(function() {
 			    	var duration = min + second;
 			    	return duration;	    	
 			};
-
+					
 			//get video_0 duration
+			
 		    $.ajax({
 		      url: durationURL_0,
-		      method: "GET"
+		      method: "GET",
+		      async: false,
 		    }).then (function (response){
 			    var duration_str = response.items[0].contentDetails.duration;
-			    var duration_0 = convertTime(duration_str);
-			    console.log(duration_0);
-
+			    duration_0 = convertTime(duration_str);
 		    }); //ajax get duration end
 
+		    console.log(duration_0);
 
+
+			//get video_0 duration
+			var duration_1 = 0 ;
+		    $.ajax({
+		      url: durationURL_1,
+		      method: "GET",
+		      async: false,
+		    }).then (function (response){
+			    var duration_str = response.items[0].contentDetails.duration;
+			    duration_1 = convertTime(duration_str);
+		    }); //ajax get duration end
+
+			//get video_0 duration
+			var duration_0 = 0 ;
+		    $.ajax({
+		      url: durationURL_0,
+		      method: "GET",
+		      async: false,
+		    }).then (function (response){
+			    var duration_str = response.items[0].contentDetails.duration;
+			    duration_0 = convertTime(duration_str);
+		    }); //ajax get duration end
+
+			//get video_0 duration
+			var duration_0 = 0 ;
+		    $.ajax({
+		      url: durationURL_0,
+		      method: "GET",
+		      async: false,
+		    }).then (function (response){
+			    var duration_str = response.items[0].contentDetails.duration;
+			    duration_0 = convertTime(duration_str);
+		    }); //ajax get duration end
 
 		   	
 
