@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 	var player = videojs("video");
 
-	// Player will play the first item in myList
+	// Player will play the first item in myList, manully choose these 5 songs :)
 	var myList = [{
 	  name: 'P!nk - Just Give Me A Reason ft. Nate Ruess',
 	  description: '',
@@ -94,7 +94,7 @@ $(document).ready(function() {
 	var trackName = "";
 
 	
-	//loop btn loop or not loop function
+	//loop btn for loop or not loop the video is playing
 	$("#loopBtn").on("click", function () {
 		event.preventDefault();
 		if ( videojs('video').loop() == false ) {
@@ -105,7 +105,6 @@ $(document).ready(function() {
 				$("#loopBtn").text("Start Looping");				
 			}
 	});
-
 	 
 	//search function will take whatever the user type in 
 	$("#searchButton").on("click", function(){
@@ -137,6 +136,8 @@ $(document).ready(function() {
 	      url: queryURL,
 	      method: "GET"
 	    }).then (function (response){
+
+
 	    	//var to hold 5 videoID | var to hold 5 videoTitle
 			var videoIdArr = []; 
 			var videoTitleArr = [];
@@ -145,10 +146,40 @@ $(document).ready(function() {
 			for (i=0; i<myList.length; i++) {
 				videoIdArr[i] = response.items[i].id.videoId;
 				videoTitleArr[i] = response.items[i].snippet.title;	
+			}; //for loop end	
 
-				myList[i] = {
+			//convert youtube api data duration into seconds
+		    function convertTime (duration) {
+		    	var duration_a = duration.split('T'); 
+		    	var min_1 = duration_a[1].split('M');
+		    	var min = min_1[0] * 60;
+		    	var second_1 = min_1[1].split("S");
+		    	var second = second_1[0] * 1;
+		    	var duration = min + second;
+		    	return duration;	    	
+			};
+
+		    //arr hold 5 queryURL for each video | arr hold all duration
+		    var durationURLarr = [];
+		    var durationArr = [];
+
+		    // url to get each video duration 
+		    for (i=0; i<myList.length; i++) { 
+		    	durationURLarr[i] = "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=" + 
+		    						videoIdArr[i] +
+		    						"&key=" + youTuBeApiKey ;
+		    	$.ajax({
+			      url: durationURLarr[i],
+			      method: "GET",
+			      async: false,
+			    }).then (function (response){
+				    var duration_str = response.items[0].contentDetails.duration;
+				    durationArr[i] = convertTime(duration_str);
+			    }); //ajax get duration end
+
+			    myList[i] = {
 				  name: videoTitleArr[i] ,
-				  description: '',
+				  duration: durationArr[i],
 				  sources: [
 				    { src: 'https://www.youtube.com/embed/' + videoIdArr[i], type: 'video/youtube' },
 				  ],
@@ -160,8 +191,10 @@ $(document).ready(function() {
 				      media: '(min-width: 400px;)'
 				    }
 				  ]
-				}
-			}; //for loop end	
+				} //myList end
+
+		    };// for loop end
+
 
 			//place the first video in new playlist into player
 			videojs('video').ready(function() {
@@ -184,70 +217,20 @@ $(document).ready(function() {
 		    console.log(artistName);
 		    console.log(trackName);
 
-		    // url to get each video duration 
-		    var videoIDcallDuration =  "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id="
-		    var durationURL_0 = videoIDcallDuration + 
-		    					videoId_0 +
-		    					"&key=" + youTuBeApiKey ;
 
-		    					console.log(durationURL_0);
-		    //convert youtube api data duration into seconds
-		    function convertTime (duration) {
-			    	var duration_a = duration.split('T'); 
-			    	var min_1 = duration_a[1].split('M');
-			    	var min = min_1[0] * 60;
-			    	var second_1 = min_1[1].split("S");
-			    	var second = second_1[0] * 1;
-			    	var duration = min + second;
-			    	return duration;	    	
-			};
+
+		   
+
+		    
 					
-			//get video_0 duration
 			
-		    $.ajax({
-		      url: durationURL_0,
-		      method: "GET",
-		      async: false,
-		    }).then (function (response){
-			    var duration_str = response.items[0].contentDetails.duration;
-			    duration_0 = convertTime(duration_str);
-		    }); //ajax get duration end
-
-		    console.log(duration_0);
 
 
-			//get video_0 duration
-			var duration_1 = 0 ;
-		    $.ajax({
-		      url: durationURL_1,
-		      method: "GET",
-		      async: false,
-		    }).then (function (response){
-			    var duration_str = response.items[0].contentDetails.duration;
-			    duration_1 = convertTime(duration_str);
-		    }); //ajax get duration end
 
-			//get video_0 duration
-			var duration_0 = 0 ;
-		    $.ajax({
-		      url: durationURL_0,
-		      method: "GET",
-		      async: false,
-		    }).then (function (response){
-			    var duration_str = response.items[0].contentDetails.duration;
-			    duration_0 = convertTime(duration_str);
-		    }); //ajax get duration end
 
-			//get video_0 duration
-			var duration_0 = 0 ;
-		    $.ajax({
-		      url: durationURL_0,
-		      method: "GET",
-		      async: false,
-		    }).then (function (response){
-			    var duration_str = response.items[0].contentDetails.duration;
-			    duration_0 = convertTime(duration_str);
-		    }); //ajax get duration end
+
+
+
 
 		   	
 
