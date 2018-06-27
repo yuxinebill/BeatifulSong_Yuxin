@@ -8,7 +8,8 @@ $(document).ready(function() {
 	  description: '',
 	  duration: 243,
 	  sources: [
-	    { src: 'https://www.youtube.com/embed/OpQFFLBMEPI', type: 'video/youtube' },
+	    { src: 'https://www.youtube.com/embed/O5TdnuUhIgs', type: 'video/youtube' },
+	    // OpQFFLBMEPI
 	  ],
 	  // thumbnail give the pic in the playlist
 	  thumbnail: [
@@ -93,13 +94,16 @@ $(document).ready(function() {
 	var artistName = "";
 	var trackName = "";
 
+	
+	//loop btn loop or not loop function
 	$("#loopBtn").on("click", function () {
 		event.preventDefault();
-		if ( videojs('video').loop() == "false" ) {
-				videojs('video').loop() = "true" ;
-				$("#loopBtn").html("Stop Looping");
+		if ( videojs('video').loop() == false ) {
+				videojs('video').loop(true);
+				$("#loopBtn").text("Stop Looping");
 			} else {
-				videojs('video').loop() = "false"
+				videojs('video').loop(false);
+				$("#loopBtn").text("Loop");				
 			}
 	});
 
