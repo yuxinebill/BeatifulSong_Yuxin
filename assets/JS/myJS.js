@@ -8,8 +8,7 @@ $(document).ready(function() {
 	  description: '',
 	  duration: 243,
 	  sources: [
-	    { src: 'https://www.youtube.com/embed/O5TdnuUhIgs', type: 'video/youtube' },
-	    // OpQFFLBMEPI
+	    { src: 'https://www.youtube.com/embed/OpQFFLBMEPI', type: 'video/youtube' },
 	  ],
 	  // thumbnail give the pic in the playlist
 	  thumbnail: [
@@ -255,7 +254,8 @@ $(document).ready(function() {
 		    console.log(res);
 
 		    artistName = res[0];
-		    trackName = res[1];
+		    var foo = res[1].split("(");
+		    trackName = foo[0];
 
 		    console.log(artistName);
 		    console.log(trackName);
@@ -265,7 +265,7 @@ $(document).ready(function() {
 		    						"&id=" + videoTitle_0 +
 		    						"&key=" + youTuBeApiKey ;
 
-		   	console.log(durationURL);
+		   	console.log(durationURL_0);
 
 
 		    // myList[0].name = str ;
