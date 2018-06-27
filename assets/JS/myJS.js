@@ -57,7 +57,7 @@ $(document).ready(function() {
 	  description: '',
 	  duration: 297,
 	  sources: [
-	    { src: 'https://www.youtube.com/embed/EBt_88nxG4c', type: 'video/youtube' },
+	    { src: 'https://www.youtube.com/embed/EBt_88nxG4c', type: 'video/youtube'},
 	  ],
 	  thumbnail: [
 	    {
@@ -239,8 +239,8 @@ $(document).ready(function() {
 
 			videojs('video').ready(function() {
  	    		var myPlayer = this;
- 			  	myPlayer.src({ type: 'video/youtube', src: 'https://www.youtube.com/embed/' + videoId_0 
- 			 });
+ 			  	myPlayer.src({ type: 'video/youtube', src: 'https://www.youtube.com/embed/' + videoId_0 });
+ 			});
 
 			player.playlist(myList);
 			player.playlistUi();
