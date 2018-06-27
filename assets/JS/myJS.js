@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
 	var player = videojs("video");
 
 	// Player will play the first item in myList, manully choose these 5 songs :)
@@ -93,10 +92,25 @@ $(document).ready(function() {
 	var artistName = "";
 	var trackName = "";
 
+	var userList = [];
 
 	$("#toMyListBtn").on("click", function(){
-		
-	})
+		//var hold the song's URL, which is playing right now		
+		var currentSongURL = player.currentSrc() ;
+		var currentIndex = 0;
+			
+		for (i=0 ; i<myList.length; i++) {
+			currentIndex = i;
+			var eachURL = myList[i].sources[0].src;	
+			if (eachURL == currentSongURL) {
+				break;
+			}; //if func end
+		}; // for func end
+		console.log(currentIndex);
+		// $("<card>").addClass("card_" + toMyListBtnCounter).attr("src", "")
+	});
+
+
 
 	
 	//loop btn for loop or not loop the video is playing
@@ -141,6 +155,7 @@ $(document).ready(function() {
 	      url: queryURL,
 	      method: "GET"
 	    }).then (function (response){
+
 
 	    	//var to hold 5 videoID | var to hold 5 videoTitle
 			var videoIdArr = []; 
