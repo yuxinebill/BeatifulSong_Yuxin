@@ -72,15 +72,16 @@
     <button id="loopBtn" class="btn btn-warning m-4"> Stop Looping </button>
     <button id="toMyListBtn" class="btn btn-warning my-4"> Add to My List</button>
     
-  </div> <!-- video window end -->
+  </div> <!-- video window row end -->
 
     
   <section class="container">
-    <!-- 1st row lyric-->
+    <!-- row -->
     <div class="row p-0" >
 
-      <div id="lyricContainer" class="col-8 bg-info p-0" style="height: 400px;">
-
+      <div class="col-8">
+      <!-- lyric -->
+      <div id="lyricContainer" class="bg-info p-0" style="height: 400px;">
          <div id="currentLyric" class="m-0" style="height: 90%; width: 100%; background-color: yellow"></div>
 
          <div id="searchLyric">
@@ -92,13 +93,16 @@
               </div>
             </form> 
           </div>      
-      </div>
+      </div><!-- lyric end -->
+
+      <div id="recommendation" style="background-color: pink; height: 400px;" >  
+      </div><!-- recommendation end-->
+
+      </div><!-- col end -->
 
       <!-- my list -->
-      <div class="col-4 bg-light">
-        
-        <button id="playMyListBtn" class="btn btn-warning col-12 text-secondary mb-2">Play My List</button>
-         
+      <div class="col-4 bg-light">       
+        <button id="playMyListBtn" class="btn btn-warning col-12 text-secondary mb-2">Play My List</button>        
           <div class="px-0" id="mylist">
               <!-- <card >
                 <img class="card-img-top" src="https://i.ytimg.com/vi/OpQFFLBMEPI/mqdefault.jpg" >
@@ -108,20 +112,8 @@
                 </div>
               </card> -->          
           </div>
-        
-
-      </div>
-      
-    </div><!-- 1st row lyric end-->
-
-    <!-- 2cd row recommendation-->
-    <div class="row" id="recommendation" style="background-color: pink; height: 400px;" >
-    
-      
-      
-    </div><!-- 3nd row recommendation end-->
-
-
+      </div><!-- my list col-4 end -->
+    </div><!-- row end -->
   </section>
 
   <!-- footer -->

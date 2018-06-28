@@ -190,7 +190,7 @@ $(document).ready(function() {
 	      url: queryURL,
 	      method: "GET"
 	    }).then (function (response){
-
+	    	console.log(response);
 
 	    	//var to hold 5 videoID | var to hold 5 videoTitle
 			var videoIdArr = []; 
