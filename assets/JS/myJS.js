@@ -137,6 +137,9 @@ $(document).ready(function() {
 
 		userList.splice(currentIndex_user, 1);
 		console.log(userList);
+
+		this.parentElement.parentElement.remove();
+
 	});
 
 
