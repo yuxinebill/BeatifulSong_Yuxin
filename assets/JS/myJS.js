@@ -184,6 +184,12 @@ $(document).ready(function() {
 		} else {
 			player.playlist(userList);
 			player.playlistUi();
+			var firstVideoInUserList = userList[0].sources[0].src;
+			//place the first video in new playlist into player
+			videojs('video').ready(function() {
+ 	    		var myPlayer = this;
+ 			  	myPlayer.src({ type: 'video/youtube', src: firstVideoInUserList });
+ 			}); // videojs('video')
 		}
 	});
 	 
