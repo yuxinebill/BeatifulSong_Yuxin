@@ -181,7 +181,7 @@ $(document).ready(function() {
 	$("#playMyListBtn").on("click", function () {
 		if (userList.length == 0) {
 			alert("Please add songs to your list first.");
-		} else if (userList == myList) { 
+		} else if (userList === myList) { 
 			alert("Your list is playing right now!");
 		} else {
 			myList = userList;
@@ -220,7 +220,8 @@ $(document).ready(function() {
 	        			"&videoCategoryId=10" +
 	        			"&key=" + 
 	        			youTuBeApiKey;
-	        
+	    var ajaxList_top = [];
+	    mylist = ajaxList_top; 
 	    // Performing an AJAX request with the queryURL
 	    $.ajax({
 	      url: queryURL,
@@ -269,8 +270,16 @@ $(document).ready(function() {
 		    var durationURLarr = [];
 		    var durationArr = [];
 
+		    var ajaxList_ = ;
+		    
+		    var ajaxList_middle = [];
+		    ajaxList_top = ajaxList_middle;
+
 		    // url to get each video duration 
 		    for (i=0; i<myList.length; i++) { 
+		    	ajaxList_middle = ajaxList_end;
+		    	var ajaxList_end = [];
+
 		    	durationURLarr[i] = "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=" + 
 		    						videoIdArr[i] +
 		    						"&key=" + youTuBeApiKey ;
@@ -283,7 +292,7 @@ $(document).ready(function() {
 				    durationArr[i] = convertTime(durationStrArr[i]);
 			    }); //ajax get duration end
 
-			    myList[i] = {
+			     var ajaxList_end[i] = {
 				  name: videoTitleArr[i] ,
 				  duration: durationArr[i],
 				  sources: [
