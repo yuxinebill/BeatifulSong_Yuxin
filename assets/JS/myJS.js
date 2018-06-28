@@ -181,11 +181,11 @@ $(document).ready(function() {
 	$("#playMyListBtn").on("click", function () {
 		if (userList.length == 0) {
 			alert("Please add songs to your list first.");
-		} else if (userList == mylist) { 
+		} else if (userList == myList) { 
 			alert("Your list is playing right now!");
 		} else {
 			mylist = userList;
-			player.playlist(mylist);
+			player.playlist(myList);
 			player.playlistUi();
 			var firstVideoInUserList = userList[0].sources[0].src;
 			//place the first video in new playlist into player
