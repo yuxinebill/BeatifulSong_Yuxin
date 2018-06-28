@@ -93,40 +93,54 @@ $(document).ready(function() {
 	var artistName = "";
 	var trackName = "";
 
-	var userList = [];
-
-	
+	var userList = [];	
 
 	$("#toMyListBtn").on("click", function cool (){
 		event.preventDefault();
 		//var hold the song's URL, which is playing right now		
 		var currentSongURL = player.currentSrc() ;
 
-		for (i=0 ; i<userList.length; i++) {
-			var eachURL = userList[i].sources[0].src;
-			if (eachURL == currentSongURL)	{
-				alert("This video is in your Favorite List already!");
-				break;
-			};
-		};
+		//fun to add the selected video into userlist and on page
+		function addIt () {
+			var currentIndex = 0;
+				
+			for (i=0 ; i<myList.length; i++) {
+				currentIndex = i;
+				var eachURL = myList[i].sources[0].src;	
+				if (eachURL == currentSongURL) {
+					break;
+				}; //if func end
+			}; // for func end
 
-		var currentIndex = 0;
+			//push the selected video to userList
+			userList.push(myList[currentIndex]);
 			
-		for (i=0 ; i<myList.length; i++) {
-			currentIndex = i;
-			var eachURL = myList[i].sources[0].src;	
-			if (eachURL == currentSongURL) {
-				break;
-			}; //if func end
-		}; // for func end
+			var imgURL = myList[currentIndex].thumbnail[0].srcset;
+			var songNames = myList[currentIndex].name;
+			//write card element to hold the selected video
+			$("<card>").append($("<img>").addClass("card-img-top").attr("src",imgURL)).appendTo($("#mylist")).append($("<div>").addClass("card-body px-0 pt-1").append($("<p>").addClass("card-text d-inline").text(songNames)).append($("<a>").attr("id", imgURL).addClass("btn btn-sm btn-warning float-right d-inline deleteBtn").text('Delete')));
+		};//addit fuc end
 
-		//push the selected video to userList
-		userList.push(myList[currentIndex]);
+		var userListURLarr = [];
 
-		var imgURL = myList[currentIndex].thumbnail[0].srcset;
-		var songNames = myList[currentIndex].name;
-		//write card element to hold the selected video
-		$("<card>").append($("<img>").addClass("card-img-top").attr("src",imgURL)).appendTo($("#mylist")).append($("<div>").addClass("card-body px-0 pt-1").append($("<p>").addClass("card-text d-inline").text(songNames)).append($("<a>").attr("id", imgURL).addClass("btn btn-sm btn-warning float-right d-inline deleteBtn").text('Delete')));
+		//if user click the btn more than once, then ...
+		if (userList.length>0)  {
+			var x= [];
+			userListURLarr = x
+
+			for (i=0 ; i<userList.length; i++) {
+				var eachURL = userList[i].sources[0].src;
+				x.push(eachURL);
+			};
+
+			var y = userListURLarr.indexOf(currentSongURL);
+
+			if (y>=0) {
+				alert("This video is in your Favorite List already!");
+			} else { addIt()};
+
+		} else { addIt();}
+
 	});//toMyListBtn end
 
 	$(document).on("click", ".deleteBtn", function() {
@@ -144,7 +158,7 @@ $(document).ready(function() {
 		}; // for func end
 		
 		console.log(currentIndex_user);
-
+		//delete clicked oject from userList
 		userList.splice(currentIndex_user, 1);
 		console.log(userList);
 
