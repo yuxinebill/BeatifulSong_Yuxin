@@ -95,10 +95,10 @@ $(document).ready(function() {
 
 	var userList = [];
 
-	var toMyListBtnCounter = 0;	
+	
 
 	$("#toMyListBtn").on("click", function(){
-		toMyListBtnCounter ++ ;
+		event.preventDefault();
 		//var hold the song's URL, which is playing right now		
 		var currentSongURL = player.currentSrc() ;
 		var currentIndex = 0;
@@ -110,26 +110,36 @@ $(document).ready(function() {
 				break;
 			}; //if func end
 		}; // for func end
-		console.log(currentIndex);
-		console.log(myList[currentIndex]);
+
 		//push the selected video to userList
 		userList.push(myList[currentIndex]);
 
 		var imgURL = myList[currentIndex].thumbnail[0].srcset;
 		var songNames = myList[currentIndex].name;
 		
-		$("<card>").attr("id", "myId_" + toMyListBtnCounter).append($("<img>").addClass("card-img-top").attr("src",imgURL)).appendTo($("#mylist")).append($("<div>").addClass("card-body px-0 pt-1").append($("<p>").addClass("card-text d-inline").text(songNames)).append($("<a>").addClass("btn btn-sm btn-warning float-right d-inline deleteBtn").text('Delete')));
+		$("<card>").append($("<img>").addClass("card-img-top").attr("src",imgURL)).appendTo($("#mylist")).append($("<div>").addClass("card-body px-0 pt-1").append($("<p>").addClass("card-text d-inline").text(songNames)).append($("<a>").attr("id", imgURL).addClass("btn btn-sm btn-warning float-right d-inline deleteBtn").text('Delete')));
 	});//toMyListBtn end
 
-	document.getElementsByClassName("deleteBtn").addEventListener("click", function() {
-		console.log(this.parentNode.parentNode.id);
+	$(document).on("click", ".deleteBtn", function() {
+		event.preventDefault();
+		var idURL = this.id;
+
+		var currentIndex_user = 0;
+		for (i=0 ; i<userList.length; i++) {
+			currentIndex_user = i;
+			var eachURL = userList[i].thumbnail[0].srcset;	
+			if (eachURL == idURL) {
+				break;
+			}; //if func end
+		}; // for func end
+		
+		console.log(currentIndex_user);
+
+		userList.splice(currentIndex_user, 1);
+		console.log(userList);
 	});
 
 
-	// $(deleteBtn).on("click", function(){
-		
-	// 	userList.push(myList[currentIndex]);
-	// });//deleteBtn end
 	
 
 
