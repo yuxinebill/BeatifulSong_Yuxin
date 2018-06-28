@@ -95,7 +95,7 @@ $(document).ready(function() {
 
 	var userList = [];	
 
-	$("#toMyListBtn").on("click", function cool (){
+	$("#toMyListBtn").on("click", function (){
 		event.preventDefault();
 		//var hold the song's URL, which is playing right now		
 		var currentSongURL = player.currentSrc() ;
@@ -163,14 +163,7 @@ $(document).ready(function() {
 		console.log(userList);
 
 		this.parentElement.parentElement.remove();
-
 	});
-
-
-	
-
-
-
 	
 	//loop btn for loop or not loop the video is playing
 	$("#loopBtn").on("click", function () {
@@ -182,6 +175,12 @@ $(document).ready(function() {
 				videojs('video').loop(false);
 				$("#loopBtn").text("Start Looping");				
 			}
+	});
+
+
+	$("#playMyListBtn").on("click", function () {
+		player.playlist(userList);
+		player.playlistUi();
 	});
 	 
 	//search function will take whatever the user type in 
