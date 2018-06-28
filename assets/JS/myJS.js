@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
 	var player = videojs("video");
 
 	// Player will play the first item in myList, manully choose these 5 songs :)
@@ -94,7 +95,10 @@ $(document).ready(function() {
 
 	var userList = [];
 
+	var toMyListBtnCounter = 0;	
+
 	$("#toMyListBtn").on("click", function(){
+		toMyListBtnCounter ++ ;
 		//var hold the song's URL, which is playing right now		
 		var currentSongURL = player.currentSrc() ;
 		var currentIndex = 0;
@@ -107,8 +111,26 @@ $(document).ready(function() {
 			}; //if func end
 		}; // for func end
 		console.log(currentIndex);
-		// $("<card>").addClass("card_" + toMyListBtnCounter).attr("src", "")
+		console.log(myList[currentIndex]);
+		//push the selected video to userList
+		userList.push(myList[currentIndex]);
+
+		var imgURL = myList[currentIndex].thumbnail[0].srcset;
+		var songNames = myList[currentIndex].name;
+		
+		$("<card>").attr("id", "myId_" + toMyListBtnCounter).append($("<img>").addClass("card-img-top").attr("src",imgURL)).appendTo($("#mylist")).append($("<div>").addClass("card-body px-0 pt-1").append($("<p>").addClass("card-text d-inline").text(songNames)).append($("<a>").addClass("btn btn-sm btn-warning float-right d-inline deleteBtn").text('Delete')));
+	});//toMyListBtn end
+
+	document.getElementsByClassName("deleteBtn").addEventListener("click", function() {
+		console.log(this.parentNode.parentNode.id);
 	});
+
+
+	// $(deleteBtn).on("click", function(){
+		
+	// 	userList.push(myList[currentIndex]);
+	// });//deleteBtn end
+	
 
 
 
