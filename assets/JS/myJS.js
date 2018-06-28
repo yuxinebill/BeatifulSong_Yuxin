@@ -184,7 +184,7 @@ $(document).ready(function() {
 		} else if (userList == myList) { 
 			alert("Your list is playing right now!");
 		} else {
-			mylist = userList;
+			myList = userList;
 			player.playlist(myList);
 			player.playlistUi();
 			var firstVideoInUserList = userList[0].sources[0].src;
