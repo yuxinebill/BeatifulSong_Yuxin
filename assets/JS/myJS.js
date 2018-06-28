@@ -113,12 +113,12 @@ $(document).ready(function() {
 			}; // for func end
 
 			//push the selected video to userList
-			userList.push(myList[currentIndex]);
+			userList.unshift(myList[currentIndex]);
 			
 			var imgURL = myList[currentIndex].thumbnail[0].srcset;
 			var songNames = myList[currentIndex].name;
 			//write card element to hold the selected video
-			$("<card>").append($("<img>").addClass("card-img-top").attr("src",imgURL)).appendTo($("#mylist")).append($("<div>").addClass("card-body px-0 pt-1").append($("<p>").addClass("card-text d-inline").text(songNames)).append($("<a>").attr("id", imgURL).addClass("btn btn-sm btn-warning float-right d-inline deleteBtn").text('Delete')));
+			$("<card>").append($("<img>").addClass("card-img-top").attr("src",imgURL)).prependTo($("#mylist")).append($("<div>").addClass("card-body px-0 pt-1").append($("<p>").addClass("card-text d-inline").text(songNames)).append($("<a>").attr("id", imgURL).addClass("btn btn-sm btn-warning float-right d-inline deleteBtn").text('Delete')));
 		};//addit fuc end
 
 		var userListURLarr = [];
@@ -179,8 +179,12 @@ $(document).ready(function() {
 
 
 	$("#playMyListBtn").on("click", function () {
-		player.playlist(userList);
-		player.playlistUi();
+		if (userList.length == 0) {
+			alert("Please add songs to your list first.")
+		} else {
+			player.playlist(userList);
+			player.playlistUi();
+		}
 	});
 	 
 	//search function will take whatever the user type in 
