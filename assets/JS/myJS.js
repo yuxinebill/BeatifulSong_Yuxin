@@ -180,9 +180,12 @@ $(document).ready(function() {
 
 	$("#playMyListBtn").on("click", function () {
 		if (userList.length == 0) {
-			alert("Please add songs to your list first.")
+			alert("Please add songs to your list first.");
+		} else if (userList == mylist) { 
+			alert("Your list is playing right now!");
 		} else {
-			player.playlist(userList);
+			mylist = userList;
+			player.playlist(mylist);
 			player.playlistUi();
 			var firstVideoInUserList = userList[0].sources[0].src;
 			//place the first video in new playlist into player
