@@ -97,10 +97,19 @@ $(document).ready(function() {
 
 	
 
-	$("#toMyListBtn").on("click", function(){
+	$("#toMyListBtn").on("click", function cool (){
 		event.preventDefault();
 		//var hold the song's URL, which is playing right now		
 		var currentSongURL = player.currentSrc() ;
+
+		for (i=0 ; i<userList.length; i++) {
+			var eachURL = userList[i].sources[0].src;
+			if (eachURL == currentSongURL)	{
+				alert("This video is in your Favorite List already!");
+				break;
+			};
+		};
+
 		var currentIndex = 0;
 			
 		for (i=0 ; i<myList.length; i++) {
@@ -116,12 +125,13 @@ $(document).ready(function() {
 
 		var imgURL = myList[currentIndex].thumbnail[0].srcset;
 		var songNames = myList[currentIndex].name;
-		
+		//write card element to hold the selected video
 		$("<card>").append($("<img>").addClass("card-img-top").attr("src",imgURL)).appendTo($("#mylist")).append($("<div>").addClass("card-body px-0 pt-1").append($("<p>").addClass("card-text d-inline").text(songNames)).append($("<a>").attr("id", imgURL).addClass("btn btn-sm btn-warning float-right d-inline deleteBtn").text('Delete')));
 	});//toMyListBtn end
 
 	$(document).on("click", ".deleteBtn", function() {
 		event.preventDefault();
+		//get the id of the btn be clicked
 		var idURL = this.id;
 
 		var currentIndex_user = 0;
