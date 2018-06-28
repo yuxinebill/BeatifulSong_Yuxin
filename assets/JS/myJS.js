@@ -125,8 +125,8 @@ $(document).ready(function() {
 
 		//if user click the btn more than once, then ...
 		if (userList.length>0)  {
-			var x= [];
-			userListURLarr = x
+			var x = [];
+			userListURLarr = x ;
 
 			for (i=0 ; i<userList.length; i++) {
 				var eachURL = userList[i].sources[0].src;
@@ -181,13 +181,13 @@ $(document).ready(function() {
 	$("#playMyListBtn").on("click", function () {
 		if (userList.length == 0) {
 			alert("Please add songs to your list first.");
-		} else if (userList === myList) { 
+		} else if (userList == myList) { 
 			alert("Your list is playing right now!");
 		} else {
 			myList = userList;
 			player.playlist(myList);
 			player.playlistUi();
-			var firstVideoInUserList = userList[0].sources[0].src;
+			var firstVideoInUserList = myList[0].sources[0].src;
 			//place the first video in new playlist into player
 			videojs('video').ready(function() {
  	    		var myPlayer = this;
@@ -220,8 +220,9 @@ $(document).ready(function() {
 	        			"&videoCategoryId=10" +
 	        			"&key=" + 
 	        			youTuBeApiKey;
+
 	    var ajaxList_top = [];
-	    mylist = ajaxList_top; 
+	    myList = ajaxList_top; 
 	    // Performing an AJAX request with the queryURL
 	    $.ajax({
 	      url: queryURL,
@@ -244,7 +245,7 @@ $(document).ready(function() {
 		    function convertTime (duration) {
 		    	var durationStrArrs = duration.split(""); 
 	    		var checkHour = durationStrArr.indexOf("H");      
-			    if (checkHour >= 0 ){
+			    if (checkHour >= 0) {
 			    	//PT1H54M40S
 			        var duration_a = duration.split('T'); //[P,1H54M40S]
 			    	var hour_1 = duration_a[1].split('H');//[1, 54M40S]
@@ -270,15 +271,11 @@ $(document).ready(function() {
 		    var durationURLarr = [];
 		    var durationArr = [];
 
-		    var ajaxList_ = ;
-		    
-		    var ajaxList_middle = [];
-		    ajaxList_top = ajaxList_middle;
+		    var ajaxList_end = [];
+		    ajaxList_top = ajaxList_end;
 
 		    // url to get each video duration 
-		    for (i=0; i<myList.length; i++) { 
-		    	ajaxList_middle = ajaxList_end;
-		    	var ajaxList_end = [];
+		    for (i=0; i<myList.length; i++) { 		    	
 
 		    	durationURLarr[i] = "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=" + 
 		    						videoIdArr[i] +
@@ -292,7 +289,7 @@ $(document).ready(function() {
 				    durationArr[i] = convertTime(durationStrArr[i]);
 			    }); //ajax get duration end
 
-			     var ajaxList_end[i] = {
+			    ajaxList_end[i] = {
 				  name: videoTitleArr[i] ,
 				  duration: durationArr[i],
 				  sources: [
@@ -307,6 +304,9 @@ $(document).ready(function() {
 				    }
 				  ]
 				} //myList end
+
+				ajaxList_end.push(ajaxList_end[i]);
+
 		    };// for loop end
 
 		    console.log(durationStrArr);
