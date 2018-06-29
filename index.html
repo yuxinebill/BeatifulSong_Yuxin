@@ -21,9 +21,7 @@
   <!-- VIDEOJS player plugin-playlist-ui -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/videojs-playlist-ui@3.4.0/dist/videojs-playlist-ui.css">
 
-  <link href="assets/CSS/style.css" rel="stylesheet">
-
-  
+  <link href="assets/CSS/style.css" rel="stylesheet">  
 </head>
 
 <body>
@@ -63,7 +61,7 @@
     </video>
 
     <div class="player-container col-4 vjs-fluid">
-      <div class="vjs-playlist vjs-fluid">
+      <div class="vjs-playlist vjs-fluid m-2">
         <!--  using javascript to add playlist here -->
       </div>
     </div>
@@ -79,28 +77,39 @@
 
       <div class="col-8">
       <!-- lyric -->
-      <div id="lyricContainer" class="bg-info p-0" style="height: 400px;">
-         <div id="currentLyric" class="m-0" style="height: 90%; width: 100%; background-color: yellow"></div>
+      <div id="lyricContainer" class="card p-0">
+        <div class="card-body text-center justify-content-center float-right">
 
-         <div id="searchLyric">
-           <form class="form-inline float-right">
-              <div class="form-group ">  
-                <input  class="form-control mr-2 " id="artist_name" placeholder="artist name"> 
-                <input  class="form-control mr-2 " id="track_name" placeholder="name of song">            
-                <button class="btn btn-warning " > Search Lyrics </button>
-              </div>
-            </form> 
-          </div>      
-      </div><!-- lyric end -->
+          <div class="card-title"><h5>Introduction of PINsongs</h5></div>
+          <h6 class="card-subtitle mb-2 text-muted border-right-0">This window will display lyric, but when the page just loaded, let give our words here ....</h6>
 
-      <div id="recommendation" style="background-color: pink; height: 400px;" >  
+          <p id="currentLyric" class="m-0 card-text">Hello, PINsongs is a APP to do ....</p>
+          
+        </div><!-- lyric card body end -->                   
+      </div><!-- lyric card end -->
+
+      <div id="searchLyric" class="mt-2 float-right" style="clear: right; clear: both; display: block; ">
+        <form class="form-inline">
+          <div class="form-group">  
+            <input  class="form-control mr-2 " id="artist_name" placeholder="artist name"> 
+            <input  class="form-control mr-2 " id="track_name" placeholder="name of song">            
+            <a class="btn btn-warning " > Search Lyrics </a>
+          </div>
+        </form>
+      </div>
+
+      <div class="clearfix"></div>
+      <div id="recommendation" class="mt-2 " style="background-color: pink; height: 400px;" > 
+
       </div><!-- recommendation end-->
 
       </div><!-- col end -->
 
+
+
       <!-- my list -->
-      <div class="col-4 bg-light">       
-        <button id="playMyListBtn" class="btn btn-warning col-12 text-secondary mb-2">Play My List</button>        
+      <div class="col-4">       
+        <button id="playMyListBtn" class="btn btn-warning col-12 mb-2">Play My List</button>        
           <div class="px-0" id="myList">
               <!-- <card >
                 <img class="card-img-top" src="https://i.ytimg.com/vi/OpQFFLBMEPI/mqdefault.jpg" >
@@ -129,9 +138,6 @@
  <script src="https://cdn.jsdelivr.net/npm/videojs-playlist-ui@3.4.0/dist/videojs-playlist-ui.js"></script>
  <!-- my JS file -->
  <script type="text/javascript" src="assets/JS/myJS.js"></script>
- 
-
-
  
 </body>
 

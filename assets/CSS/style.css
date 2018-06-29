@@ -97,5 +97,12 @@ header {
     margin-left: -1.5em;
 }
 
+#currentLyric {
+  overflow-y: scroll;
+}
 
+#myList {
+  overflow-y: scroll;
+  max-height: 800px;
+}
 
