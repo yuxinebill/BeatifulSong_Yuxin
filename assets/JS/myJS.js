@@ -382,18 +382,21 @@ $(document).ready(function() {
             console.log(artistOfficialURL);
             console.log(artistName_info);
             console.log(artistDescription);
-            console.log(artistImageURL);   
+            console.log(artistImageURL); 
+            
+            // $("<img>").attr("src", artistImageURL).attr("id", "infoImg").addClass("img-thumbnail mw-10 float-left mr-4").att("with","250").prependTo($("#bio"));
+  
             $("#infoImg").attr("src", artistImageURL);
             $("#artist_name_info").text(artistName_info);
             $("#infoText").text(artistDescription);
-            $("#artistWebsiteFind").text("Find more info on ").append($("<span>").addClass("text-info").text(artistOfficialURL));
+            $("#artistWebsite").text("Find more info on ").append($("<span>").addClass("text-info").text(artistOfficialURL));
     }); //end of artist search ajax
 
     $.ajax({
         url: gooSongQuery,
         method: "GET"
         }).then (function (response){
-        	$("#albumInfo").empty;
+        	$("#albumInfo").empty();
         	console.log(response);
             var album = response.itemListElement[0].result.detailedDescription.articleBody;
             console.log(album);
