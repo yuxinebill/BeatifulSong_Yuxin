@@ -342,29 +342,41 @@ $(document).ready(function() {
 		
 		var lyricsURL = "https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=" +
 						trackName +
-						"&apikey=55f19cc408e9b8c68c558e2b2f109268&q_artist=" + artistName ;
+						"&apikey=4e47003b16d7ec32ed3a07f9fdf8afc3&q_artist=" + artistName ;
 
 		console.log(lyricsURL);
 
-		$.ajax({
-           url: lyricsURL,
-           method: "GET",
-           dataType: "json",
-           async: false,
-       }).then(function(response){
-           console.log(response);
-           // console.log(response.message.body.lyrics.lyrics_body);
-           var x = JSON.stringify(response.message.body.lyrics.lyrics_body);
-           var res = x.replace(/\\/g, "<br/>");
-           
-           $("<p>").appendTo($("#currentLyric").html(res));
+		$(function(){
 
-         
-           
-           
-       });
+		  $.ajax({
+		    type: "GET",
+		    data: {
+		        apikey:"4e47003b16d7ec32ed3a07f9fdf8afc3",
+		        q_track: trackName,
+		        q_artist: artistName,
+		        format:"jsonp",
+		        callback:"jsonp_callback"
+		    },
+		    url: "http://api.musixmatch.com/ws/1.1/matcher.lyrics.get",
+		    dataType: "jsonp",
+		    jsonpCallback: 'jsonp_callback',
+		    contentType: 'application/json',
+		    success: function(data) {
+		        console.log(data);
+		        // console.log(data.message.body.lyrics.lyrics_body);
+		        var x = JSON.stringify(data.message.body.lyrics.lyrics_body)
+		        var haha = x.replace(/\\n/g, "<br/>");
 
-		
+		        $('#currentLyric').html(haha);
+		    },
+		    error: function(jqXHR, textStatus, errorThrown) {
+		        console.log(jqXHR);
+		        console.log(textStatus);
+		        console.log(errorThrown);
+		    }    
+		  });
+		 });
+				
 
 		
 
