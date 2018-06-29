@@ -316,15 +316,12 @@ $(document).ready(function() {
 		    
 		    var res = videoTitleArr[0].split("-");
 
-		    console.log(videoTitleArr[0]);
-		    console.log(res);
+		    // artistName = res[0].split(' ').join('');
+		    artistName = res[0].trim();
 
-		    artistName = res[0].split(' ').join('');
 		    var foo = res[1].split("(");
-		    trackName = foo[0].split(' ').join('');
-
-		    console.log(artistName);
-		    console.log(trackName);
+		    // trackName = foo[0].split(' ').join('');
+		    trackName = foo[0].trim();
 
 		
 		}); //youTube ajax ends	
@@ -338,17 +335,8 @@ $(document).ready(function() {
 			  	myPlayer.src({ type: 'video/youtube', src: firstVideoInMyList});
 		}); // videojs('video')
 
-		// ajax with lyrics start <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		
-		var lyricsURL = "https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=" +
-						trackName +
-						"&apikey=4e47003b16d7ec32ed3a07f9fdf8afc3&q_artist=" + artistName ;
-
-		console.log(lyricsURL);
-
-		$(function(){
-
-		  $.ajax({
+		// ajax with lyrics start <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		$.ajax({ 
 		    type: "GET",
 		    data: {
 		        apikey:"4e47003b16d7ec32ed3a07f9fdf8afc3",
@@ -357,7 +345,7 @@ $(document).ready(function() {
 		        format:"jsonp",
 		        callback:"jsonp_callback"
 		    },
-		    url: "http://api.musixmatch.com/ws/1.1/matcher.lyrics.get",
+		    url: "https://api.musixmatch.com/ws/1.1/matcher.lyrics.get",
 		    dataType: "jsonp",
 		    jsonpCallback: 'jsonp_callback',
 		    contentType: 'application/json',
@@ -368,18 +356,9 @@ $(document).ready(function() {
 		        var haha = x.replace(/\\n/g, "<br/>");
 
 		        $('#currentLyric').html(haha);
-		    },
-		    error: function(jqXHR, textStatus, errorThrown) {
-		        console.log(jqXHR);
-		        console.log(textStatus);
-		        console.log(errorThrown);
-		    }    
-		  });
-		 });
-				
-
+		    },			     
+		}); // ajax end
 		
-
 	});	// #searchButton event function ends
 });//doc ready function ends
 
