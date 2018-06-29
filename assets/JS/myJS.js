@@ -315,6 +315,7 @@ $(document).ready(function() {
 
 		    
 		    var res = videoTitleArr[0].split("-");
+		    $("#song_title").text(response.items[0].snippet.title);
 
 		    // artistName = res[0].split(' ').join('');
 		    artistName = res[0].trim();
