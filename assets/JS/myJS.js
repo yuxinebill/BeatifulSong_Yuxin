@@ -2,10 +2,9 @@ $(document).ready(function() {
 
 	var player = videojs("video");
 
-	// Player will play the first item in myList, manully choose these 5 songs :)
+	// Player will play the first item in myList, manully choose these 5 songs :) <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	var myList = [{
 	  name: 'P!nk - Just Give Me A Reason ft. Nate Ruess',
-	  description: '',
 	  duration: 243,
 	  sources: [
 	    { src: 'https://www.youtube.com/embed/OpQFFLBMEPI', type: 'video/youtube' },
@@ -22,7 +21,6 @@ $(document).ready(function() {
 	//second song in playlist
 	{
 	  name: 'P!nk - Try',
-	  description: '',
 	  duration: 249,
 	  sources: [
 	    { src: 'https://www.youtube.com/embed/yTCDVfMz15M', type: 'video/youtube' },
@@ -38,7 +36,6 @@ $(document).ready(function() {
 	//3rd song in playlist
 	{
 	  name: 'P!nk - What About Us',
-	  description: '',
 	  duration: 321,
 	  sources: [
 	    { src: 'https://www.youtube.com/embed/ClU3fctbGls', type: 'video/youtube' },
@@ -54,7 +51,6 @@ $(document).ready(function() {
 	 //4th song in playlist
 	{
 	  name: 'P!nk - Beautiful Trauma',
-	  description: '',
 	  duration: 297,
 	  sources: [
 	    { src: 'https://www.youtube.com/embed/EBt_88nxG4c', type: 'video/youtube'},
@@ -70,7 +66,6 @@ $(document).ready(function() {
 	 //5th song in playlist
 	{
 	  name: 'P!nk - Just Like Fire',
-	  description: '',
 	  duration: 232,
 	  sources: [
 	    { src: 'https://www.youtube.com/embed/5Nrv5teMc9Y', type: 'video/youtube' },
@@ -83,7 +78,7 @@ $(document).ready(function() {
 	    },
 	  ]
 	 }	
-	]; // myList is over
+	]; // myList is over >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 	// videoJS' function to push the myList into player
 	player.playlist(myList);
@@ -95,35 +90,28 @@ $(document).ready(function() {
 
 	var userList = [];	
 
-	$("#toMyListBtn").on("click", function (){
+	// click add to my list btn,  start <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	$("#toMyListBtn").on("click", function () {
 		event.preventDefault();
 		//var hold the song's URL, which is playing right now		
 		var currentSongURL = player.currentSrc() ;
 
-		//fun to add the selected video into userlist and on page
-		function addIt () {
-			var currentIndex = 0;
-				
-			for (i=0 ; i<myList.length; i++) {
-				currentIndex = i;
-				var eachURL = myList[i].sources[0].src;	
-				if (eachURL == currentSongURL) {
-					break;
-				}; //if func end
-			}; // for func end
-
+		function addIt () { 
+			//find the index of the video be playing in the playlist, and the unshift it to user list
+			var x = player.playlist.indexOf(currentSongURL);
 			//push the selected video to userList
-			userList.unshift(myList[currentIndex]);
+			userList.unshift(myList[x]);
 			
-			var imgURL = myList[currentIndex].thumbnail[0].srcset;
-			var songNames = myList[currentIndex].name;
+			var imgURL = myList[x].thumbnail[0].srcset;
+			var songNames = myList[x].name;
 			//write card element to hold the selected video
 			$("<card>").append($("<img>").addClass("card-img-top").attr("src",imgURL)).prependTo($("#mylist")).append($("<div>").addClass("card-body px-0 pt-1").append($("<p>").addClass("card-text d-inline").text(songNames)).append($("<a>").attr("id", imgURL).addClass("btn btn-sm btn-warning float-right d-inline deleteBtn").text('Delete')));
-		};//addit fuc end
+		};//addit fuc end, not call yet 
 
+		//var to hold all URL of favorite list
 		var userListURLarr = [];
 
-		//if user click the btn more than once, then ...
+		//if userlist has more than  one oject, then create an arr to hold all URL of userList
 		if (userList.length>0)  {
 			var x = [];
 			userListURLarr = x ;
@@ -135,15 +123,19 @@ $(document).ready(function() {
 
 			var y = userListURLarr.indexOf(currentSongURL);
 
-			if (y>=0) {
+			if (y>=0) { //if current video's URL is in userList URL, then alert
 				alert("This video is in your Favorite List already!");
-			} else { addIt()};
+			} else { addIt()};// if not in userList URL, then call addIt function
 
-		} else { addIt();}
+		} else { addIt();}//if userList has no ob, then call addIt func direacly
 
-	});//toMyListBtn end
+		console.log(myList);
+		console.log(userList);
 
-	$(document).on("click", ".deleteBtn", function() {
+	});//toMyListBtn end >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+	$(document).on("click", ".deleteBtn", function() { // delete func start <<<<<<<<<<<<<<<<<<<<<<<<<<<
 		event.preventDefault();
 		//get the id of the btn be clicked
 		var idURL = this.id;
@@ -161,11 +153,12 @@ $(document).ready(function() {
 		//delete clicked oject from userList
 		userList.splice(currentIndex_user, 1);
 		console.log(userList);
+		console.log(myList);
 
 		this.parentElement.parentElement.remove();
-	});
+	}); //delete video func end >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	
-	//loop btn for loop or not loop the video is playing
+	//loop btn for loop or not loop the video is playing start <<<<<<<<<<<<<<<<<<<<<<<<<<<
 	$("#loopBtn").on("click", function () {
 		event.preventDefault();
 		if ( videojs('video').loop() == false ) {
@@ -175,27 +168,25 @@ $(document).ready(function() {
 				videojs('video').loop(false);
 				$("#loopBtn").text("Start Looping");				
 			}
-	});
+	}); // loop end >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-
-	$("#playMyListBtn").on("click", function () {
+	$("#playMyListBtn").on("click", function () { //play my list start <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 		if (userList.length == 0) {
-			alert("Please add songs to your list first.");
-		} else if (userList == myList) { 
+			alert("Please add songs to your list first."); // no video in the list ,then alert
+		} else if (userList == myList) { 				   // userlist is playing
 			alert("Your list is playing right now!");
-		} else {
-			myList = userList;
-			player.playlist(myList);
+		} else {	
+			player.playlist(userList);
 			player.playlistUi();
-			var firstVideoInUserList = myList[0].sources[0].src;
-			//place the first video in new playlist into player
-			videojs('video').ready(function() {
- 	    		var myPlayer = this;
- 			  	myPlayer.src({ type: 'video/youtube', src: firstVideoInUserList });
- 			}); // videojs('video')
+			// var firstVideoInUserList = myList[0].sources[0].src;
+			// //place the first video in new playlist into player
+			// videojs('video').ready(function() {
+ 	 //    		var myPlayer = this;
+ 		// 	  	myPlayer.src({ type: 'video/youtube', src: firstVideoInUserList });
+ 		// 	}); // videojs('video')
 		}
-	});
-	 
+	}); // play my list end >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 	//search function will take whatever the user type in 
 	$("#searchButton").on("click", function(){
 		//prevents the submit button from trying to submit a form when clicked
@@ -221,24 +212,34 @@ $(document).ready(function() {
 	        			"&key=" + 
 	        			youTuBeApiKey;
 
-	    var ajaxList_top = [];
-	    myList = ajaxList_top; 
+	    // var ajaxList_middle = [];
+	    
 	    // Performing an AJAX request with the queryURL
 	    $.ajax({
 	      url: queryURL,
-	      method: "GET"
+	      method: "GET",
+	      async: false,
 	    }).then (function (response){
+
+	    	console.log("youTube API data")
 	    	console.log(response);
 
 	    	//var to hold 5 videoID | var to hold 5 videoTitle
 			var videoIdArr = []; 
 			var videoTitleArr = [];
 
-			// for loop push 5 videoTitle | 5 videoID | new myList
+			// for loop push 5 videoTitle | 5 videoID 
 			for (i=0; i<myList.length; i++) {
-				videoIdArr[i] = response.items[i].id.videoId;
-				videoTitleArr[i] = response.items[i].snippet.title;	
+				var x = response.items[i].id.videoId;
+				var y = response.items[i].snippet.title;	
+				videoIdArr.push(x);
+				videoTitleArr.push(y);
 			}; //for loop end	
+
+			console.log("inside ajax, get all seaching videoId");
+			console.log(videoIdArr);
+			console.log("inside ajax, get all seaching videoTitle");
+			console.log(videoTitleArr);
 
 			var durationStrArr = [];
 			//convert youtube api data duration into seconds. example of original data is PT1H54M40S
@@ -272,50 +273,53 @@ $(document).ready(function() {
 		    var durationArr = [];
 
 		    var ajaxList_end = [];
-		    ajaxList_top = ajaxList_end;
+
+		    console.log("inside ajax, myList is ")
+		    console.log(myList);
 
 		    // url to get each video duration 
-		    for (i=0; i<myList.length; i++) { 		    	
+		  //   for (i=0; i<myList.length; i++) { 
+		  //       var ajaxList_end = [];		    	
 
-		    	durationURLarr[i] = "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=" + 
-		    						videoIdArr[i] +
-		    						"&key=" + youTuBeApiKey ;
-		    	$.ajax({
-			      url: durationURLarr[i],
-			      method: "GET",
-			      async: false,
-			    }).then (function (response){
-				    durationStrArr[i] = response.items[0].contentDetails.duration;
-				    durationArr[i] = convertTime(durationStrArr[i]);
-			    }); //ajax get duration end
+		  //   	durationURLarr[i] = "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=" + 
+		  //   						videoIdArr[i] +
+		  //   						"&key=" + youTuBeApiKey ;
+		  //   	$.ajax({
+			 //      url: durationURLarr[i],
+			 //      method: "GET",
+			 //      async: false,
+			 //    }).then (function (response){
+				//     durationStrArr[i] = response.items[0].contentDetails.duration;
+				//     durationArr[i] = convertTime(durationStrArr[i]);
+			 //    }); //ajax get duration end
 
-			    ajaxList_end[i] = {
-				  name: videoTitleArr[i] ,
-				  duration: durationArr[i],
-				  sources: [
-				    { src: 'https://www.youtube.com/embed/' + videoIdArr[i], type: 'video/youtube' },
-				  ],
-				  // thumbnail give the pic in the playlist
-				  thumbnail: [
-				    {
-				      srcset: 'https://i.ytimg.com/vi/' + videoIdArr[i] + '/mqdefault.jpg',
-				      type: 'image/jpg',
-				      media: '(min-width: 400px;)'
-				    }
-				  ]
-				} //myList end
+			 //    myList[i] = {
+				//   name: videoTitleArr[i] ,
+				//   duration: durationArr[i],
+				//   sources: [
+				//     { src: 'https://www.youtube.com/embed/' + videoIdArr[i], type: 'video/youtube' },
+				//   ],
+				//   // thumbnail give the pic in the playlist
+				//   thumbnail: [
+				//     {
+				//       srcset: 'https://i.ytimg.com/vi/' + videoIdArr[i] + '/mqdefault.jpg',
+				//       type: 'image/jpg',
+				//       media: '(min-width: 400px;)'
+				//     }
+				//   ]
+				// } //myList end
 
-				ajaxList_end.push(ajaxList_end[i]);
+				// // // ajaxList_end.push(ajaxList_end[i]);
+				// // console.log("ajaxList_end is ");
+				// // console.log(ajaxList_end);
 
-		    };// for loop end
+		  //   };// for loop end
+
+		    ajaxList_top = ajaxList_middle;
 
 		    console.log(durationStrArr);
 		    console.log(durationArr);
-			//place the first video in new playlist into player
-			videojs('video').ready(function() {
- 	    		var myPlayer = this;
- 			  	myPlayer.src({ type: 'video/youtube', src: 'https://www.youtube.com/embed/' + videoIdArr[0] });
- 			}); // videojs('video')
+
 
 			player.playlist(myList);
 			player.playlistUi();
@@ -332,42 +336,19 @@ $(document).ready(function() {
 		    console.log(artistName);
 		    console.log(trackName);
 
-
-
-		   
-
-		    
-					
-			
-
-
-
-
-
-
-
-
-		   	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		
 		}); //youTube ajax ends	
-	});	// #searchButton event function ends	
+		myList = ajaxList_top;
+		console.log(myList);
+		
+
+		// //place the first video in new playlist into player
+		// videojs('video').ready(function() {
+	 //    		var myPlayer = this;
+		// 	  	myPlayer.src({ type: 'video/youtube', src: 'https://www.youtube.com/embed/' + videoIdArr[0] });
+		// }); // videojs('video')
+
+	});	// #searchButton event function ends
 });//doc ready function ends
 
  
