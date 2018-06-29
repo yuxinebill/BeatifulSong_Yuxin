@@ -367,7 +367,12 @@ $(document).ready(function() {
     $.ajax({
         url: gooArtistQuery,
         method: "GET"
-        }).then (function (response){           
+        }).then (function (response){
+        	$("#infoImg").empty();
+            $("#artist_name_info").empty();
+            $("#infoText").empty();
+            $("#artistWebsiteFind").empty();
+
             var results= response.itemListElement;
             // console.log (results);
             var artistName_info = results[0].result.name;
@@ -377,16 +382,22 @@ $(document).ready(function() {
             console.log(artistOfficialURL);
             console.log(artistName_info);
             console.log(artistDescription);
-            console.log(artistImageURL);        
+            console.log(artistImageURL);   
+            $("#infoImg").attr("src", artistImageURL);
+            $("#artist_name_info").text(artistName_info);
+            $("#infoText").text(artistDescription);
+            $("#artistWebsiteFind").text("Find more info on ").append($("<span>").addClass("text-info").text(artistOfficialURL));
     }); //end of artist search ajax
 
     $.ajax({
         url: gooSongQuery,
         method: "GET"
-        }).then (function (response){ 
-            var gooSongResults = response.itemListElement[0].result;
-            var gooSongInfo =  gooSongResults.detailedDescription.articleBody;
-            console.log(gooSongInfo);
+        }).then (function (response){
+        	$("#albumInfo").empty;
+        	console.log(response);
+            var album = response.itemListElement[0].result.detailedDescription.articleBody;
+            console.log(album);
+            $("#albumInfo").text(album).prepend($("<span>").addClass("text-info font-weight-bold").text("About The Album "));
     });
     
 
