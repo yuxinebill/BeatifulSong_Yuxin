@@ -319,9 +319,9 @@ $(document).ready(function() {
 		    console.log(videoTitleArr[0]);
 		    console.log(res);
 
-		    artistName = res[0].trim();
+		    artistName = res[0].split(' ').join('');
 		    var foo = res[1].split("(");
-		    trackName = foo[0].trim();
+		    trackName = foo[0].split(' ').join('');
 
 		    console.log(artistName);
 		    console.log(trackName);
@@ -334,10 +334,39 @@ $(document).ready(function() {
 		//place the first video in new playlist into player
 		videojs('video').ready(function() {
 	    		var myPlayer = this;
-	    		console.log(myList);
 	    		var firstVideoInMyList = myList[0].sources[0].src
 			  	myPlayer.src({ type: 'video/youtube', src: firstVideoInMyList});
 		}); // videojs('video')
+
+		// ajax with lyrics start <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		
+		var lyricsURL = "https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=" +
+						trackName +
+						"&apikey=55f19cc408e9b8c68c558e2b2f109268&q_artist=" + artistName ;
+
+		console.log(lyricsURL);
+
+		$.ajax({
+           url: lyricsURL,
+           method: "GET",
+           dataType: "json",
+           async: false,
+       }).then(function(response){
+           console.log(response);
+           // console.log(response.message.body.lyrics.lyrics_body);
+           var x = JSON.stringify(response.message.body.lyrics.lyrics_body);
+           var res = x.replace(/\\/g, "<br/>");
+           
+           $("<p>").appendTo($("#currentLyric").html(res));
+
+         
+           
+           
+       });
+
+		
+
+		
 
 	});	// #searchButton event function ends
 });//doc ready function ends
