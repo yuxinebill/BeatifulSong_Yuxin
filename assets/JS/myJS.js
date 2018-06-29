@@ -105,7 +105,7 @@ $(document).ready(function() {
 			var imgURL = myList[x].thumbnail[0].srcset;
 			var songNames = myList[x].name;
 			//write card element to hold the selected video
-			$("<card>").append($("<img>").addClass("card-img-top").attr("src",imgURL)).prependTo($("#mylist")).append($("<div>").addClass("card-body px-0 pt-1").append($("<p>").addClass("card-text d-inline").text(songNames)).append($("<a>").attr("id", imgURL).addClass("btn btn-sm btn-warning float-right d-inline deleteBtn").text('Delete')));
+			$("<card>").append($("<img>").addClass("card-img-top").attr("src",imgURL)).prependTo($("#myList")).append($("<div>").addClass("card-body px-0 pt-1").append($("<p>").addClass("card-text d-inline").text(songNames)).append($("<a>").attr("id", imgURL).addClass("btn btn-sm btn-warning float-right d-inline deleteBtn").text('Delete')));
 		};//addit fuc end, not call yet 
 
 		//var to hold all URL of favorite list
@@ -178,12 +178,12 @@ $(document).ready(function() {
 		} else {	
 			player.playlist(userList);
 			player.playlistUi();
-			// var firstVideoInUserList = myList[0].sources[0].src;
-			// //place the first video in new playlist into player
-			// videojs('video').ready(function() {
- 	 //    		var myPlayer = this;
- 		// 	  	myPlayer.src({ type: 'video/youtube', src: firstVideoInUserList });
- 		// 	}); // videojs('video')
+			var firstVideoInUserList = userList[0].sources[0].src;
+			//place the first video in new playlist into player
+			videojs('video').ready(function() {
+ 	    		var myPlayer = this;
+ 			  	myPlayer.src({ type: 'video/youtube', src: firstVideoInUserList });
+ 			}); 
 		}
 	}); // play my list end >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -211,8 +211,6 @@ $(document).ready(function() {
 	        			"&videoCategoryId=10" +
 	        			"&key=" + 
 	        			youTuBeApiKey;
-
-	    // var ajaxList_middle = [];
 	    
 	    // Performing an AJAX request with the queryURL
 	    $.ajax({
@@ -221,7 +219,7 @@ $(document).ready(function() {
 	      async: false,
 	    }).then (function (response){
 
-	    	console.log("youTube API data")
+	    	console.log("youTube API data is below")
 	    	console.log(response);
 
 	    	//var to hold 5 videoID | var to hold 5 videoTitle
@@ -272,57 +270,49 @@ $(document).ready(function() {
 		    var durationURLarr = [];
 		    var durationArr = [];
 
-		    var ajaxList_end = [];
-
 		    console.log("inside ajax, myList is ")
 		    console.log(myList);
 
-		    // url to get each video duration 
-		  //   for (i=0; i<myList.length; i++) { 
-		  //       var ajaxList_end = [];		    	
+		   
+		    for (i=0; i<myList.length; i++) { 
+		        var ajaxList_end = [];		    	
 
-		  //   	durationURLarr[i] = "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=" + 
-		  //   						videoIdArr[i] +
-		  //   						"&key=" + youTuBeApiKey ;
-		  //   	$.ajax({
-			 //      url: durationURLarr[i],
-			 //      method: "GET",
-			 //      async: false,
-			 //    }).then (function (response){
-				//     durationStrArr[i] = response.items[0].contentDetails.duration;
-				//     durationArr[i] = convertTime(durationStrArr[i]);
-			 //    }); //ajax get duration end
+		    	durationURLarr[i] = "https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=" + 
+		    						videoIdArr[i] +
+		    						"&key=" + youTuBeApiKey ;
+		    	$.ajax({
+			      url: durationURLarr[i],
+			      method: "GET",
+			      async: false,
+			    }).then (function (response){
+				    durationStrArr[i] = response.items[0].contentDetails.duration;
+				    durationArr[i] = convertTime(durationStrArr[i]);
+			    }); //ajax get duration end
 
-			 //    myList[i] = {
-				//   name: videoTitleArr[i] ,
-				//   duration: durationArr[i],
-				//   sources: [
-				//     { src: 'https://www.youtube.com/embed/' + videoIdArr[i], type: 'video/youtube' },
-				//   ],
-				//   // thumbnail give the pic in the playlist
-				//   thumbnail: [
-				//     {
-				//       srcset: 'https://i.ytimg.com/vi/' + videoIdArr[i] + '/mqdefault.jpg',
-				//       type: 'image/jpg',
-				//       media: '(min-width: 400px;)'
-				//     }
-				//   ]
-				// } //myList end
-
-				// // // ajaxList_end.push(ajaxList_end[i]);
-				// // console.log("ajaxList_end is ");
-				// // console.log(ajaxList_end);
-
-		  //   };// for loop end
-
-		    ajaxList_top = ajaxList_middle;
+			    myList[i] = {
+				  name: videoTitleArr[i] ,
+				  duration: durationArr[i],
+				  sources: [
+				    { src: 'https://www.youtube.com/embed/' + videoIdArr[i], type: 'video/youtube' },
+				  ],
+				  // thumbnail give the pic in the playlist
+				  thumbnail: [
+				    {
+				      srcset: 'https://i.ytimg.com/vi/' + videoIdArr[i] + '/mqdefault.jpg',
+				      type: 'image/jpg',
+				      media: '(min-width: 400px;)'
+				    }
+				  ]
+				} //myList end
+				
+		    };// for loop end
 
 		    console.log(durationStrArr);
 		    console.log(durationArr);
 
-
 			player.playlist(myList);
 			player.playlistUi();
+
 		    
 		    var res = videoTitleArr[0].split("-");
 
@@ -338,15 +328,16 @@ $(document).ready(function() {
 
 		
 		}); //youTube ajax ends	
-		myList = ajaxList_top;
 		console.log(myList);
 		
 
-		// //place the first video in new playlist into player
-		// videojs('video').ready(function() {
-	 //    		var myPlayer = this;
-		// 	  	myPlayer.src({ type: 'video/youtube', src: 'https://www.youtube.com/embed/' + videoIdArr[0] });
-		// }); // videojs('video')
+		//place the first video in new playlist into player
+		videojs('video').ready(function() {
+	    		var myPlayer = this;
+	    		console.log(myList);
+	    		var firstVideoInMyList = myList[0].sources[0].src
+			  	myPlayer.src({ type: 'video/youtube', src: firstVideoInMyList});
+		}); // videojs('video')
 
 	});	// #searchButton event function ends
 });//doc ready function ends
