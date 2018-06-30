@@ -187,6 +187,86 @@ $(document).ready(function() {
 		}
 	}); // play my list end >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+	// ajax with lyrics start <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	function lyricAjax () {
+		$.ajax({ 
+		    type: "GET",
+		    data: {
+		        apikey:"4e47003b16d7ec32ed3a07f9fdf8afc3",
+		        q_track: trackName,
+		        q_artist: artistName,
+		        format:"jsonp",
+		        callback:"jsonp_callback"
+		    },
+		    url: "https://api.musixmatch.com/ws/1.1/matcher.lyrics.get",
+		    dataType: "jsonp",
+		    jsonpCallback: 'jsonp_callback',
+		    contentType: 'application/json',
+		    success: function(data) {
+		        console.log(data);
+		        $('#currentLyric').empty();
+		        // console.log(data.message.body.lyrics.lyrics_body);
+		        var x = JSON.stringify(data.message.body.lyrics.lyrics_body)
+		        var haha = x.replace(/\\n/g, "<br/>");
+
+		        $('#currentLyric').html(haha);
+		    },		     
+		}); 
+	}; // ajax for lyrics end >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+	// lyric searching button func <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	$("#lyricBtn").on("click", function(){
+		event.preventDefault();
+		arN = $("#artist_name").val().trim().toLowerCase();
+		trN = $("#track_name").val().trim().toLowerCase();
+		//if user do not typy in any word, then ....
+		if (arN == "" || trN == "") {
+			$('#currentLyric').text("Hey, do NOT forgot typing in both artist name and the song's name ...");
+			$("#song_title").html("Welcome to ");
+			$("#song_title").append($("<span>").css("color", "pink").text("PIN"));
+			$("#song_title").append($("<span>").addClass("font-weight-light").text("songs"));
+			$("#song_title").append(" !");		
+		} else {
+			$.ajax({ 
+			    type: "GET",
+			    data: {
+			        apikey:"4e47003b16d7ec32ed3a07f9fdf8afc3",
+			        q_track: trN,
+			        q_artist: arN,
+			        format:"jsonp",
+			        callback:"jsonp_callback"
+			    },
+			    url: "http://api.musixmatch.com/ws/1.1/matcher.track.get",
+			    dataType: "jsonp",
+			    jsonpCallback: 'jsonp_callback',
+			    contentType: 'application/json',
+			    success: function(data) {
+			        console.log(data);
+			        $('#song_title').empty();
+
+			        if (data.message.body == "") {
+			        	$('#currentLyric').text("Sorry, could not find what was requested ...");
+						$("#song_title").html("Welcome to ");
+						$("#song_title").append($("<span>").css("color", "pink").text("PIN"));
+						$("#song_title").append($("<span>").addClass("font-weight-light").text("songs"));
+						$("#song_title").append(" !");	
+			        } else {
+			        	artistName = data.message.body.track.artist_name;
+				        trackName = data.message.body.track.track_name;
+
+				        console.log(data.message.body.track.track_name);
+				        console.log(data.message.body.track.artist_name);
+
+				        $('#song_title').text(artistName + " - " + trackName);
+
+				        lyricAjax ();
+				    }// else end			        
+			    },// success func end
+			}); //ajax end		
+		};// if func end	
+	});//lyric searching button func end >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
 	//search function will take whatever the user type in 
 	$("#searchButton").on("click", function(){
 		//prevents the submit button from trying to submit a form when clicked
@@ -329,29 +409,8 @@ $(document).ready(function() {
 			  	myPlayer.src({ type: 'video/youtube', src: firstVideoInMyList});
 		}); // videojs('video')
 
-		// ajax with lyrics start <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-		$.ajax({ 
-		    type: "GET",
-		    data: {
-		        apikey:"4e47003b16d7ec32ed3a07f9fdf8afc3",
-		        q_track: trackName,
-		        q_artist: artistName,
-		        format:"jsonp",
-		        callback:"jsonp_callback"
-		    },
-		    url: "https://api.musixmatch.com/ws/1.1/matcher.lyrics.get",
-		    dataType: "jsonp",
-		    jsonpCallback: 'jsonp_callback',
-		    contentType: 'application/json',
-		    success: function(data) {
-		        console.log(data);
-		        // console.log(data.message.body.lyrics.lyrics_body);
-		        var x = JSON.stringify(data.message.body.lyrics.lyrics_body)
-		        var haha = x.replace(/\\n/g, "<br/>");
-
-		        $('#currentLyric').html(haha);
-		    },			     
-		}); // ajax for lyrics end >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		//fire lyric fuction; 
+		lyricAjax ();
 
 // ============= Artist search variables =============    
 // Searching for the artist seems kinda iffy, the search for pink first leads to Pink Floyd    
@@ -368,10 +427,10 @@ $(document).ready(function() {
         url: gooArtistQuery,
         method: "GET"
         }).then (function (response){
-        	$("#infoImg").empty();
+        	$("#infoImg").attr("src","").removeClass("img-thumbnail");
             $("#artist_name_info").empty();
             $("#infoText").empty();
-            $("#artistWebsiteFind").empty();
+            $("#artistWebsite").empty();
 
             var results= response.itemListElement;
             // console.log (results);
@@ -385,8 +444,7 @@ $(document).ready(function() {
             console.log(artistImageURL); 
             
             // $("<img>").attr("src", artistImageURL).attr("id", "infoImg").addClass("img-thumbnail mw-10 float-left mr-4").att("with","250").prependTo($("#bio"));
-  
-            $("#infoImg").attr("src", artistImageURL);
+            $("#infoImg").attr("src", artistImageURL).addClass("img-thumbnail");
             $("#artist_name_info").text(artistName_info);
             $("#infoText").text(artistDescription);
             $("#artistWebsite").text("Find more info on ").append($("<span>").addClass("text-info").text(artistOfficialURL));
@@ -402,10 +460,6 @@ $(document).ready(function() {
             console.log(album);
             $("#albumInfo").text(album).prepend($("<span>").addClass("text-info font-weight-bold").text("About The Album "));
     });
-    
-
-
-
     // ============= google ajax end ====================================================    
 		
 	});	// #searchButton event function ends
