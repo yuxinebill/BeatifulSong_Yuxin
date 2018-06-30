@@ -348,7 +348,7 @@ $(document).ready(function() {
 			        format:"jsonp",
 			        callback:"jsonp_callback"
 			    },
-			    url: "http://api.musixmatch.com/ws/1.1/matcher.track.get",
+			    url: "https://api.musixmatch.com/ws/1.1/matcher.track.get",
 			    dataType: "jsonp",
 			    jsonpCallback: 'jsonp_callback',
 			    contentType: 'application/json',
