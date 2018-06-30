@@ -84,6 +84,7 @@ $(document).ready(function() {
 	player.playlist(myList);
 	// Initialize the playlist-ui plugin with no option (i.e. the defaults).
 	player.playlistUi();
+	player.playlist.autoadvance();
 
 	var artistName = "";
 	var trackName = "";
