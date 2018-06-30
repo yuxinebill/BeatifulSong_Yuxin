@@ -106,7 +106,7 @@ $(document).ready(function() {
 			var songNames = myList[x].name;
 			var songNames_short = songNames
 			//write card element to hold the selected video
-			$("<card>").append($("<img>").addClass("card-img-top").attr("src",imgURL)).prependTo($("#myList")).append($("<div>").addClass("card-body px-0 pt-1").append($("<p>").addClass("card-text d-inline").text(songNames)).append($("<a>").attr("id", imgURL).addClass("btn btn-sm btn-warning float-right d-inline deleteBtn").text('Delete')));
+			$("<card>").append($("<img>").addClass("card-img-top").attr("src",imgURL)).prependTo($("#myList")).append($("<div>").addClass("card-body px-0 pt-1 clearfix").append($("<p>").addClass("card-text d-inline").text(songNames)).append($("<a>").attr("id", imgURL).addClass("btn btn-sm btn-warning float-right d-inline deleteBtn").text('Delete')));
 		};//addit fuc end, not call yet 
 
 		//var to hold all URL of favorite list
