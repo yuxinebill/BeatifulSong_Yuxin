@@ -179,7 +179,7 @@ $(document).ready(function() {
 		} else {	
 			player.playlist(userList);
 			player.playlistUi();
-			player.playlist.autoadvance();
+			player.playlist.autoadvance(0);
 			var firstVideoInUserList = userList[0].sources[0].src;
 			//place the first video in new playlist into player
 			videojs('video').ready(function() {
