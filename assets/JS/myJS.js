@@ -179,6 +179,7 @@ $(document).ready(function() {
 		} else {	
 			player.playlist(userList);
 			player.playlistUi();
+			player.playlist.autoadvance();
 			var firstVideoInUserList = userList[0].sources[0].src;
 			//place the first video in new playlist into player
 			videojs('video').ready(function() {
@@ -497,6 +498,7 @@ $(document).ready(function() {
 
 			player.playlist(myList);
 			player.playlistUi();
+			player.playlist.autoadvance();
 		    
 		    var res = videoTitleArr[0].split("-");
 		    $("#song_title").text(response.items[0].snippet.title);
