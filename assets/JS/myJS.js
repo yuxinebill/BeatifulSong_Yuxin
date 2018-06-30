@@ -104,6 +104,7 @@ $(document).ready(function() {
 			
 			var imgURL = myList[x].thumbnail[0].srcset;
 			var songNames = myList[x].name;
+			var songNames_short = songNames
 			//write card element to hold the selected video
 			$("<card>").append($("<img>").addClass("card-img-top").attr("src",imgURL)).prependTo($("#myList")).append($("<div>").addClass("card-body px-0 pt-1").append($("<p>").addClass("card-text d-inline").text(songNames)).append($("<a>").attr("id", imgURL).addClass("btn btn-sm btn-warning float-right d-inline deleteBtn").text('Delete')));
 		};//addit fuc end, not call yet 
@@ -236,7 +237,7 @@ $(document).ready(function() {
 			        format:"jsonp",
 			        callback:"jsonp_callback"
 			    },
-			    url: "http://api.musixmatch.com/ws/1.1/matcher.track.get",
+			    url: "https://api.musixmatch.com/ws/1.1/matcher.track.get",
 			    dataType: "jsonp",
 			    jsonpCallback: 'jsonp_callback',
 			    contentType: 'application/json',
@@ -266,6 +267,59 @@ $(document).ready(function() {
 		};// if func end	
 	});//lyric searching button func end >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+
+
+	function arSearchFun () {// ============= Artist search variables ============= 
+
+		
+	    var gooArtistQuery=	'https://kgsearch.googleapis.com/v1/entities:search?query=' + 
+	    					artistName + 
+	    					'&key=AIzaSyCAu8rpZg4vODYzCd1Guz3m8YwLWBZpilM&limit=5';
+	// ============== Album Search by track variables=====
+	// You can search by track to get info on the album. For some reason, trimming the spaces leads to disasterous results.
+	    var gooSongQuery= 	'https://kgsearch.googleapis.com/v1/entities:search?query=' + 
+	    					trackName + 
+	    					'&types=MusicAlbum'+ '&key=AIzaSyCAu8rpZg4vODYzCd1Guz3m8YwLWBZpilM&limit=5'
+	// ===========================        
+	    $.ajax({
+	        url: gooArtistQuery,
+	        method: "GET"
+	        }).then (function (response){
+	        	$("#infoImg").attr("src","").removeClass("img-thumbnail");
+	            $("#artist_name_info").empty();
+	            $("#infoText").empty();
+	            $("#artistWebsite").empty();
+
+	            var results= response.itemListElement;
+	            // console.log (results);
+	            var artistName_info = results[0].result.name;
+	            var artistDescription = results[0].result.detailedDescription.articleBody;
+	            var artistOfficialURL = results[0].result.url;
+	            var artistImageURL= results[0].result.image.contentUrl;
+	            console.log(artistOfficialURL);
+	            console.log(artistName_info);
+	            console.log(artistDescription);
+	            console.log(artistImageURL); 
+	            
+	            // $("<img>").attr("src", artistImageURL).attr("id", "infoImg").addClass("img-thumbnail mw-10 float-left mr-4").att("with","250").prependTo($("#bio"));
+	            $("#infoImg").attr("src", artistImageURL).addClass("img-thumbnail");
+	            $("#artist_name_info").text(artistName_info);
+	            $("#infoText").text(artistDescription);
+	            $("#artistWebsite").text("Find more info on ").append($("<span>").addClass("text-info").text(artistOfficialURL));
+	    }); //end of artist search ajax
+
+	    $.ajax({
+	        url: gooSongQuery,
+	        method: "GET"
+	        }).then (function (response){
+	        	$("#albumInfo").empty();
+	        	console.log(response);
+	            var album = response.itemListElement[0].result.detailedDescription.articleBody;
+	            console.log(album);
+	            $("#albumInfo").text(album).prepend($("<span>").addClass("text-info font-weight-bold").text("About The Album "));
+	    }); // ajax end
+	}// ============= artist search ajax func end ====================================================    
+			
 	// Artist searching button func <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	$("#arSearchBtn").on("click", function(){
 		event.preventDefault();
@@ -275,8 +329,12 @@ $(document).ready(function() {
         $("#infoText").empty();
         $("#artistWebsite").empty();
 
-		arN_info = $("#artist_name_info").val().trim().toLowerCase();
-		trN_info = $("#track_name_info").val().trim().toLowerCase();
+        arN_info = $("#artist_name_input").val().trim().toLowerCase();
+		trN_info = $("#track_name_input").val().trim().toLowerCase();
+		console.log(arN_info);
+		console.log(trN_info);
+
+
 		//if user do not typy in any word, then ....
 		if (arN_info == "" || trN_info == "") {
 			$('#infoText').text("Hey, do NOT forgot typing in both artist name and the song's name ...");		
@@ -285,8 +343,8 @@ $(document).ready(function() {
 			    type: "GET",
 			    data: {
 			        apikey:"4e47003b16d7ec32ed3a07f9fdf8afc3",
-			        q_track: trN,
-			        q_artist: arN,
+			        q_track: trN_info,
+			        q_artist: arN_info,
 			        format:"jsonp",
 			        callback:"jsonp_callback"
 			    },
@@ -296,7 +354,6 @@ $(document).ready(function() {
 			    contentType: 'application/json',
 			    success: function(data) {
 			        console.log(data);
-			        $('#song_title').empty();
 
 			        if (data.message.body == "") {
 			        	$('#infoText').text("Sorry, could not find what was requested ...");
@@ -307,7 +364,7 @@ $(document).ready(function() {
 				        console.log(data.message.body.track.track_name);
 				        console.log(data.message.body.track.artist_name);
 
-				        
+				        arSearchFun ();		        
 				    }// else end			        
 			    },// success func end
 			}); //ajax end		
@@ -460,57 +517,8 @@ $(document).ready(function() {
 
 		//fire lyric fuction; 
 		lyricAjax ();
-
-// ============= Artist search variables =============    
-// Searching for the artist seems kinda iffy, the search for pink first leads to Pink Floyd    
-    var gooArtistQuery=	'https://kgsearch.googleapis.com/v1/entities:search?query=' + 
-    					artistName + 
-    					'&key=AIzaSyCAu8rpZg4vODYzCd1Guz3m8YwLWBZpilM&limit=5';
-// ============== Album Search by track variables=====
-// You can search by track to get info on the album. For some reason, trimming the spaces leads to disasterous results.
-    var gooSongQuery= 	'https://kgsearch.googleapis.com/v1/entities:search?query=' + 
-    					trackName + 
-    					'&types=MusicAlbum'+ '&key=AIzaSyCAu8rpZg4vODYzCd1Guz3m8YwLWBZpilM&limit=5'
-// ===========================        
-    $.ajax({
-        url: gooArtistQuery,
-        method: "GET"
-        }).then (function (response){
-        	$("#infoImg").attr("src","").removeClass("img-thumbnail");
-            $("#artist_name_info").empty();
-            $("#infoText").empty();
-            $("#artistWebsite").empty();
-
-            var results= response.itemListElement;
-            // console.log (results);
-            var artistName_info = results[0].result.name;
-            var artistDescription = results[0].result.detailedDescription.articleBody;
-            var artistOfficialURL = results[0].result.url;
-            var artistImageURL= results[0].result.image.contentUrl;
-            console.log(artistOfficialURL);
-            console.log(artistName_info);
-            console.log(artistDescription);
-            console.log(artistImageURL); 
-            
-            // $("<img>").attr("src", artistImageURL).attr("id", "infoImg").addClass("img-thumbnail mw-10 float-left mr-4").att("with","250").prependTo($("#bio"));
-            $("#infoImg").attr("src", artistImageURL).addClass("img-thumbnail");
-            $("#artist_name_info").text(artistName_info);
-            $("#infoText").text(artistDescription);
-            $("#artistWebsite").text("Find more info on ").append($("<span>").addClass("text-info").text(artistOfficialURL));
-    }); //end of artist search ajax
-
-    $.ajax({
-        url: gooSongQuery,
-        method: "GET"
-        }).then (function (response){
-        	$("#albumInfo").empty();
-        	console.log(response);
-            var album = response.itemListElement[0].result.detailedDescription.articleBody;
-            console.log(album);
-            $("#albumInfo").text(album).prepend($("<span>").addClass("text-info font-weight-bold").text("About The Album "));
-    });
-    // ============= google ajax end ====================================================    
-		
+		//fire Artist in fo search fuction;
+		arSearchFun ();	
 	});	// #searchButton event function ends
 });//doc ready function ends
 
