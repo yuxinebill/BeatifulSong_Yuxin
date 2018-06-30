@@ -111,7 +111,7 @@ $(document).ready(function() {
 		//var to hold all URL of favorite list
 		var userListURLarr = [];
 
-		//if userlist has more than  one oject, then create an arr to hold all URL of userList
+		//if userlist has more than one oject, then create an arr to hold all URL of userList
 		if (userList.length>0)  {
 			var x = [];
 			userListURLarr = x ;
@@ -265,6 +265,55 @@ $(document).ready(function() {
 			}); //ajax end		
 		};// if func end	
 	});//lyric searching button func end >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+	// Artist searching button func <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	$("#arSearchBtn").on("click", function(){
+		event.preventDefault();
+		$("#albumInfo").empty();
+		$("#infoImg").attr("src","").removeClass("img-thumbnail");
+        $("#artist_name_info").empty();
+        $("#infoText").empty();
+        $("#artistWebsite").empty();
+
+		arN_info = $("#artist_name_info").val().trim().toLowerCase();
+		trN_info = $("#track_name_info").val().trim().toLowerCase();
+		//if user do not typy in any word, then ....
+		if (arN_info == "" || trN_info == "") {
+			$('#infoText').text("Hey, do NOT forgot typing in both artist name and the song's name ...");		
+		} else {
+			$.ajax({ 
+			    type: "GET",
+			    data: {
+			        apikey:"4e47003b16d7ec32ed3a07f9fdf8afc3",
+			        q_track: trN,
+			        q_artist: arN,
+			        format:"jsonp",
+			        callback:"jsonp_callback"
+			    },
+			    url: "http://api.musixmatch.com/ws/1.1/matcher.track.get",
+			    dataType: "jsonp",
+			    jsonpCallback: 'jsonp_callback',
+			    contentType: 'application/json',
+			    success: function(data) {
+			        console.log(data);
+			        $('#song_title').empty();
+
+			        if (data.message.body == "") {
+			        	$('#infoText').text("Sorry, could not find what was requested ...");
+			        } else {
+			        	artistName = data.message.body.track.artist_name;
+				        trackName = data.message.body.track.track_name;
+
+				        console.log(data.message.body.track.track_name);
+				        console.log(data.message.body.track.artist_name);
+
+				        
+				    }// else end			        
+			    },// success func end
+			}); //ajax end		
+		};// if func end	
+	});//Artist searching button func end >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 
 
 	//search function will take whatever the user type in 
