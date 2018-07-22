@@ -1,3 +1,14 @@
+//8-83 		preset playlist
+//97-140 	add to my List btn Func
+//144 -165	delete video from my list btn func
+//169 - 177 loop btn func
+//181 -196 	play my List btn 
+//201 -225 	ajax for lyrics (ready to be called)
+//229 - 278 lyric searching button func
+//282 - 331	 artist search ajax func (redy to be called)
+//334 - 382	Artist searching button func
+//387 - 534	main seaching btn func
+
 $(document).ready(function() {
 
 	var player = videojs("video");
@@ -269,8 +280,6 @@ $(document).ready(function() {
 		};// if func end	
 	});//lyric searching button func end >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-
-
 	function arSearchFun () {// ============= Artist search variables ============= 
 
 		
@@ -372,7 +381,6 @@ $(document).ready(function() {
 			}); //ajax end		
 		};// if func end	
 	});//Artist searching button func end >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
 
 
 	//search function will take whatever the user type in 
